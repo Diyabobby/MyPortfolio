@@ -6,7 +6,7 @@
 <title>Diya Bobby — Backend Engineer</title>
 <meta name="description" content="Backend Engineer with 2+ years of experience designing scalable microservices using Java, Spring Boot, and REST APIs." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -313,6 +313,172 @@
       linear-gradient(90deg, rgba(0,229,191,0.03) 1px, transparent 1px);
     background-size: 50px 50px;
   }
+
+  /* REFERENCE-INSPIRED PORTFOLIO */
+  :root {
+    --bg: #10131d;
+    --bg2: #171b29;
+    --surface: #1d2231;
+    --border: rgba(237,239,255,0.12);
+    --accent: #a79bff;
+    --accent2: #ff8d9b;
+    --accent3: #7767f5;
+    --text: #f4f3fa;
+    --muted: #a4a7b8;
+    --glow: 0 12px 36px rgba(0,0,0,0.22);
+    --illustration-halo: #26243f;
+    --illustration-grid: #34314f;
+    --illustration-hill: #393459;
+    --illustration-ground: #d7d6df;
+    --illustration-coral: #b76d78;
+    --illustration-coral-light: #d39aa0;
+    --illustration-purple: #7865f5;
+    --illustration-shirt: #b8bfd7;
+    --illustration-laptop: #343849;
+    --illustration-laptop-edge: #596075;
+    --illustration-pants: #343447;
+    --illustration-skin: #efc3b7;
+    --illustration-hair: #3b3446;
+    --illustration-pot: #bac5e8;
+    --illustration-leaf: #8876ff;
+  }
+  body[data-theme="light"] {
+    --bg: #ffffff;
+    --bg2: #f7f7fb;
+    --surface: #ffffff;
+    --border: rgba(36,37,51,0.12);
+    --accent: #6232a0;
+    --accent2: #e57583;
+    --accent3: #7861ff;
+    --text: #171820;
+    --muted: #818697;
+    --glow: 0 12px 36px rgba(49,35,87,0.1);
+    --illustration-halo: #efedff;
+    --illustration-grid: #fff;
+    --illustration-hill: #e6e2ff;
+    --illustration-ground: #d7d6df;
+    --illustration-coral: #b76d78;
+    --illustration-coral-light: #d39aa0;
+    --illustration-purple: #7865f5;
+    --illustration-shirt: #b8bfd7;
+    --illustration-laptop: #343849;
+    --illustration-laptop-edge: #596075;
+    --illustration-pants: #343447;
+    --illustration-skin: #efc3b7;
+    --illustration-hair: #3b3446;
+    --illustration-pot: #bac5e8;
+    --illustration-leaf: #7865f5;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  body::before, .cursor-glow { display: none; }
+  .font-display, h1, h2, h3, h4 { font-family: 'DM Sans', sans-serif; letter-spacing: -0.035em; }
+  .section { padding: 96px 0; }
+  nav { background: var(--bg); }
+  nav.glass { background: var(--bg); backdrop-filter: none; }
+  nav > .max-w-6xl { max-width: 1240px; }
+  nav .max-w-6xl { border: 0; }
+  nav .font-display { font-family: 'DM Sans', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
+  .nav-link { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0; text-transform: none; color: var(--muted); }
+  .nav-link::after { display: none; }
+  .nav-link:hover, .nav-link.active { color: var(--accent); }
+  #hero {
+    min-height: 100vh;
+    padding-top: 64px;
+    background: var(--bg);
+  }
+  #hero.grid-bg { background-image: none; }
+  #hero canvas, #hero > div[style*="position: absolute"] { display: none; }
+  #hero > .max-w-6xl {
+    max-width: 1240px;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  #hero .hero-copy { max-width: 510px; }
+  #hero .hero-greeting {
+    font-size: clamp(2.1rem, 4.2vw, 3.15rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.18;
+  }
+  #hero .gradient-text {
+    color: var(--accent);
+    background: none;
+    animation: none;
+    -webkit-text-fill-color: var(--accent);
+  }
+  #hero .hero-greeting .wave { display: inline-block; transform-origin: 70% 70%; }
+  #hero .hero-role { font-size: 0.98rem !important; color: var(--accent); font-weight: 600; }
+  #hero .hero-description { max-width: 500px !important; font-size: 0.96rem !important; line-height: 1.65; }
+  #hero .hero-socials { display: flex; align-items: center; gap: 10px; }
+  #hero .hero-socials a {
+    width: 36px; height: 36px; display: grid; place-items: center;
+    color: var(--text); background: var(--surface); border: 1px solid var(--border);
+    border-radius: 50%; transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  #hero .hero-socials a:hover { transform: translateY(-3px); color: var(--bg); background: var(--accent); }
+  #hero .hero-socials svg { width: 17px; height: 17px; }
+  #hero .hero-actions { gap: 14px; }
+  #hero .btn-primary, #hero .btn-outline {
+    border-radius: 5px; padding: 11px 17px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.035em; box-shadow: none;
+  }
+  #hero .btn-primary { background: var(--accent3); color: #fff; }
+  #hero .btn-primary:hover { background: var(--accent); color: var(--bg); box-shadow: none; }
+  #hero .btn-outline { border-color: var(--accent3); color: var(--text); }
+  #hero .btn-outline:hover { background: var(--accent3); color: #fff; border-color: var(--accent3); }
+  #hero .hero-stats { border-top: 1px solid var(--border); padding-top: 18px; max-width: 280px; }
+  #hero .hero-stats .font-display { font-size: 1.35rem !important; color: var(--accent); }
+  #hero .hero-stats > div > div:last-child { font-size: 0.62rem !important; letter-spacing: 0.07em !important; }
+  #hero .hero-illustration { width: 100%; max-width: 610px; justify-self: end; }
+  #hero .hero-illustration svg { display: block; width: 100%; height: auto; overflow: visible; }
+  #hero .hero-scroll-indicator { display: none; }
+  .tag {
+    border: 0; padding: 0; border-radius: 0; background: transparent; box-shadow: none;
+    color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.045em; text-transform: none;
+  }
+  .glass { background: var(--surface); backdrop-filter: none; border-color: var(--border); border-radius: 10px; }
+  .card-hover:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--glow); }
+  .chip { color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, transparent); border-color: color-mix(in srgb, var(--accent) 24%, transparent); border-radius: 4px; }
+  .chip:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .section-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.09em; }
+  .section h2 { font-family: 'DM Sans', sans-serif; font-size: clamp(2rem, 4vw, 3rem) !important; font-weight: 700 !important; line-height: 1.1; letter-spacing: -0.05em; }
+  .glow-line { background: var(--border); opacity: 1; }
+  #experience, #skills, #contact { background: var(--bg2) !important; }
+  #projects, #education { background: var(--bg) !important; }
+  #experience .glass.card-hover { background: var(--surface); border-radius: 10px !important; }
+  #experience h3, #projects h3, #education h4 { font-family: 'DM Sans', sans-serif; font-weight: 700 !important; letter-spacing: -0.025em; }
+  #skills .glass { background: var(--surface); border-radius: 10px !important; }
+  #skills h3 { font-family: 'DM Sans', sans-serif; }
+  #skills .skill-fill { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
+  #projects .glass.card-hover, #education .glass.card-hover { background: var(--surface); }
+  #contact .glass { background: var(--surface); }
+  .form-input { border-radius: 6px; background: var(--bg); }
+  footer { background: var(--bg) !important; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 4px;
+  }
+  @media (max-width: 768px) {
+    .section { padding: 72px 0; }
+    #hero { min-height: auto; padding-top: 64px; }
+    #hero > .max-w-6xl { grid-template-columns: 1fr; padding-top: 5.5rem; gap: 2.5rem; }
+    #hero .hero-copy { max-width: 600px; }
+    #hero .hero-greeting { font-size: clamp(2.25rem, 9vw, 3.4rem); }
+    #hero .hero-illustration { max-width: 520px; justify-self: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important; animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
+    }
+  }
 </style>
 </head>
 <body data-theme="dark">
@@ -532,8 +698,8 @@ function Navbar({ theme, setTheme }) {
   const links = [
     { id:"about", label:"About" },
     { id:"experience", label:"Experience" },
-    { id:"skills", label:"Skills" },
     { id:"projects", label:"Projects" },
+    { id:"skills", label:"Skills" },
     { id:"education", label:"Education" },
     { id:"contact", label:"Contact" }
   ];
@@ -549,9 +715,10 @@ function Navbar({ theme, setTheme }) {
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <button onClick={() => scrollTo("hero")}
-                className="font-display font-800 text-sm tracking-widest uppercase"
+                className="font-display text-sm"
+                aria-label="Back to top"
                 style={{ color:"var(--accent)" }}>
-          DB<span style={{color:"var(--text)"}}>.</span>
+          &lt; Diya Bobby &gt;
         </button>
 
         {/* Desktop */}
@@ -564,6 +731,8 @@ function Navbar({ theme, setTheme }) {
           ))}
           <button onClick={() => setTheme(t => t==="dark"?"light":"dark")}
                   className="ml-4 w-8 h-8 rounded-full flex items-center justify-center transition-all"
+                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+                  title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
                   style={{ border:"1px solid var(--border)", background:"var(--surface)", color:"var(--muted)" }}>
             {theme === "dark" ? "☀" : "🌙"}
           </button>
@@ -573,6 +742,8 @@ function Navbar({ theme, setTheme }) {
         <div className="mobile-nav items-center gap-3">
           <button onClick={() => setTheme(t => t==="dark"?"light":"dark")}
                   className="w-8 h-8 rounded-full flex items-center justify-center"
+                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+                  title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
                   style={{ border:"1px solid var(--border)", background:"var(--surface)" }}>
             {theme === "dark" ? "☀" : "🌙"}
           </button>
@@ -605,133 +776,87 @@ function Navbar({ theme, setTheme }) {
 
 /* ─── HERO ──────────────────────────────────────────────────── */
 function Hero() {
-  const typed = useTyping([
-    "Backend Engineer",
-    "Java Specialist",
-    "Microservices Architect",
-    "CI/CD Enthusiast",
-    "Security-First Dev"
-  ]);
-
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior:"smooth" });
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
-      <ParticleCanvas />
-
-      {/* Gradient orbs */}
-      <div style={{ position:"absolute", top:"15%", right:"10%", width:400, height:400,
-                    borderRadius:"50%", background:"radial-gradient(circle, rgba(0,229,191,0.06) 0%, transparent 70%)",
-                    filter:"blur(40px)", zIndex:1, animation:"float 7s ease-in-out infinite" }} />
-      <div style={{ position:"absolute", bottom:"20%", left:"5%", width:300, height:300,
-                    borderRadius:"50%", background:"radial-gradient(circle, rgba(124,92,252,0.07) 0%, transparent 70%)",
-                    filter:"blur(30px)", zIndex:1, animation:"float 9s ease-in-out infinite 2s" }} />
-
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center w-full">
-        {/* Left */}
-        <div>
-          <div style={{ animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"0.2s" }}>
-            <span className="tag">Available for Opportunities</span>
+        <div className="hero-copy">
+          <div className="hero-greeting">
+            Hi there <span className="wave" aria-hidden="true">👋</span><br />
+            I'm <span className="gradient-text">Diya Bobby</span>
           </div>
-
-          <h1 className="font-display mt-6"
-              style={{ fontSize:"clamp(2.4rem,6vw,4.2rem)", fontWeight:800, lineHeight:1.08,
-                       animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"0.4s" }}>
-            <span style={{ color:"var(--text)" }}>Hi, I'm </span>
-            <span className="gradient-text">Diya</span><br />
-            <span style={{ color:"var(--text)" }}>Bobby</span>
-          </h1>
-
-          <div className="mt-4 flex items-center gap-2"
-               style={{ animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"0.6s" }}>
-            <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"1.1rem", color:"var(--accent)" }}>
-              {typed}
-            </span>
-            <span className="cursor-blink" style={{ color:"var(--accent)", fontSize:"1.1rem" }}>|</span>
-          </div>
-
-          <p className="mt-5 leading-relaxed"
-             style={{ color:"var(--muted)", maxWidth:480, fontSize:"0.9rem",
-                      animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"0.8s" }}>
-            {DATA.tagline} Designing resilient systems at{" "}
-            <span style={{ color:"var(--accent)" }}>TCS</span>, Bengaluru.
+          <div className="hero-role mt-4">{DATA.role} · Bengaluru, India</div>
+          <p className="hero-description mt-4 leading-relaxed" style={{ color:"var(--muted)" }}>
+            {DATA.tagline} With 2+ years at <span style={{ color:"var(--text)", fontWeight:600 }}>TCS</span>,
+            I build reliable backend services and APIs used in production.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4"
-               style={{ animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"1s" }}>
-            <button className="btn-primary" onClick={() => scrollTo("projects")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-              </svg>
-              View Projects
-            </button>
-            <button className="btn-outline" onClick={() => scrollTo("contact")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-              Contact Me
-            </button>
+          <div className="hero-socials mt-5" aria-label="Social links">
+            <a href={DATA.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href={DATA.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.44c.98 0 1.79-.77 1.79-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+            </a>
+            <a href={DATA.leetcode} target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.1 13.2a1.1 1.1 0 0 1 0-2.2h5.8a1.1 1.1 0 0 1 0 2.2h-5.8ZM8.6 20.2a4.4 4.4 0 0 1-3.1-1.3L2.1 15.5a5 5 0 0 1 0-7l6.7-6.7a1.1 1.1 0 0 1 1.6 1.6L3.7 10a2.8 2.8 0 0 0 0 4l3.4 3.4a2.2 2.2 0 0 0 3.1 0l2.4-2.4a1.1 1.1 0 1 1 1.6 1.6l-2.4 2.4a4.4 4.4 0 0 1-3.2 1.2Zm3.5-5.3a1.1 1.1 0 0 1-.8-.3l-3-3a1.1 1.1 0 0 1 0-1.6l6.7-6.7a1.1 1.1 0 1 1 1.6 1.6l-5.9 5.9 2.2 2.2a1.1 1.1 0 0 1-.8 1.9Z"/></svg>
+            </a>
+            <a href={`mailto:${DATA.email}`} aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+            </a>
           </div>
 
-          <div className="mt-10 flex gap-6"
-               style={{ animation:"fadeUp 0.6s ease forwards", opacity:0, animationDelay:"1.2s" }}>
+          <div className="hero-actions mt-6 flex flex-wrap">
+            <button className="btn-primary" onClick={() => scrollTo("contact")}>Contact Me</button>
+            <button className="btn-outline" onClick={() => scrollTo("experience")}>See My Experience</button>
+          </div>
+
+          <div className="hero-stats mt-7 flex gap-8">
             {[
-              { label:"Years Exp.", value:"2+" },
+              { label:"Years Experience", value:"2+" },
               { label:"APIs Developed", value:"40+" }
             ].map(s => (
               <div key={s.label}>
-                <div className="font-display" style={{ fontSize:"1.6rem", fontWeight:800, color:"var(--accent)" }}>{s.value}</div>
-                <div style={{ fontSize:"0.65rem", color:"var(--muted)", letterSpacing:"0.1em", textTransform:"uppercase", marginTop:2 }}>{s.label}</div>
+                <div className="font-display">{s.value}</div>
+                <div style={{ color:"var(--muted)", textTransform:"uppercase", marginTop:2 }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right — floating card */}
-        <div className="flex justify-center" style={{ animation:"fadeUp 0.7s ease forwards", opacity:0, animationDelay:"0.7s" }}>
-          <div className="glass float" style={{ borderRadius:16, padding:"28px", maxWidth:320, width:"100%",
-                                                 boxShadow:"0 0 60px rgba(0,229,191,0.08), 0 20px 60px rgba(0,0,0,0.4)" }}>
-            <div className="flex items-center gap-3 mb-5">
-              <div style={{ width:48, height:48, borderRadius:12, background:"linear-gradient(135deg,var(--accent),var(--accent3))",
-                            display:"flex", alignItems:"center", justifyContent:"center",
-                            fontFamily:"Syne", fontWeight:800, fontSize:"1.1rem", color:"#000" }}>
-                DB
-              </div>
-              <div>
-                <div className="font-display" style={{ fontWeight:700, fontSize:"0.9rem" }}>Diya Bobby</div>
-                <div style={{ fontSize:"0.7rem", color:"var(--muted)" }}>Backend Engineer @ TCS</div>
-              </div>
-            </div>
-
-            <div className="glow-line mb-4" />
-
-            {[
-              { icon:"📍", text:"Bengaluru, Karnataka" },
-              { icon:"🎓", text:"TCS — NIT Karnataka" },
-              { icon:"💼", text:"2+ Years Experience" }
-            ].map(i => (
-              <div key={i.icon} className="flex items-center gap-3 mb-3" style={{ fontSize:"0.8rem", color:"var(--muted)" }}>
-                <span>{i.icon}</span><span>{i.text}</span>
-              </div>
-            ))}
-
-            <div className="glow-line mt-4 mb-4" />
-
-            <div className="flex flex-wrap gap-2">
-              {["Java","Spring Boot","Docker","Microservices"].map(t => (
-                <span key={t} className="chip">{t}</span>
-              ))}
-            </div>
-          </div>
+        <div className="hero-illustration" role="img" aria-label="Illustration of an engineer working at a computer">
+          <svg viewBox="0 0 620 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <ellipse cx="315" cy="201" rx="239" ry="166" fill="var(--illustration-halo)" />
+            <path d="M88 126h422M105 181h411M145 74v190M245 42v252M351 41v258M456 75v190" fill="none" stroke="var(--illustration-grid)" strokeWidth="5" />
+            <path d="M77 265c17-45 42-66 75-63 28 2 44 28 69 19 22-8 38-44 68-45 28-1 35 30 63 30 30 0 41-42 75-43 28-1 38 29 59 35 15 4 30-5 49-20v105H77z" fill="var(--illustration-hill)" />
+            <path d="M180 278c38-34 88-37 135-24 43 12 73 47 115 42 28-3 41-24 64-19 17 4 27 21 29 39H142c3-15 16-28 38-38Z" fill="var(--illustration-ground)" />
+            <path d="M171 291h91v88h-91z" fill="var(--illustration-coral)" />
+            <path d="M171 291l44-24 47 24-45 25z" fill="var(--illustration-coral-light)" />
+            <path d="M261 294h220c39 0 65 28 65 58v12H261z" fill="var(--illustration-ground)" />
+            <path d="M461 363h85v-17c0-27-23-49-51-49h-34z" fill="var(--illustration-coral)" />
+            <path d="M480 298c-2-42-20-69-56-81l-93-26-11 38 91 24c22 6 34 25 36 45z" fill="var(--illustration-ground)" />
+            <path d="m347 191 30-34 42 8-13 37z" fill="var(--illustration-purple)" />
+            <path d="m337 201 12-16 37 11-6 19-41-4z" fill="var(--illustration-purple)" />
+            <path d="M235 193c-18 11-34 29-47 56l-37 17 8 13 48-15 43-45z" fill="var(--illustration-shirt)" />
+            <path d="m244 188 48 4 25 57-55 18-48-40z" fill="var(--illustration-shirt)" />
+            <path d="m263 206 64 7 12 43-73-4z" fill="var(--illustration-laptop)" />
+            <path d="m263 206 64 7-2 6-61-6z" fill="var(--illustration-laptop-edge)" />
+            <path d="m294 251 46 9-16 6-47-8z" fill="var(--illustration-laptop-edge)" />
+            <path d="m236 241-45 43-46 11-8-9 39-17 34-52z" fill="var(--illustration-pants)" />
+            <path d="m138 286 12 7-9 14-19 3-8-5 11-10z" fill="var(--illustration-skin)" />
+            <path d="m270 251-39 48-39 16-8-8 27-21 21-57z" fill="var(--illustration-pants)" />
+            <path d="m190 309 10 7-11 14-19 4-8-5 12-12z" fill="var(--illustration-skin)" />
+            <path d="m235 183 16-35 27 8 8 37-35 18z" fill="var(--illustration-skin)" />
+            <path d="m236 157 5-22 31-8 20 18-8 24-13-9-12 17-12-12-5 20-12-8z" fill="var(--illustration-hair)" />
+            <path d="m246 159-8 26 15 4 12-23z" fill="var(--illustration-skin)" />
+            <path d="M517 331h31v31h-31z" fill="var(--illustration-pot)" />
+            <path d="M532 331v-33m0 17-12-12m12 5 10-14m-10 25 13-8" fill="none" stroke="var(--illustration-leaf)" strokeWidth="5" strokeLinecap="round" />
+            <circle cx="115" cy="110" r="6" fill="var(--accent3)" opacity=".8" />
+            <circle cx="494" cy="130" r="5" fill="var(--illustration-coral)" opacity=".9" />
+            <path d="M403 89h28m-14-14v28M139 209h20m-10-10v20" stroke="var(--accent3)" strokeWidth="3" strokeLinecap="round" opacity=".65" />
+          </svg>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-           style={{ opacity:0.5, animation:"fadeUp 0.6s ease forwards 1.8s" }}>
-        <div style={{ fontSize:"0.6rem", letterSpacing:"0.2em", color:"var(--muted)", textTransform:"uppercase" }}>scroll</div>
-        <div style={{ width:1, height:40, background:"linear-gradient(to bottom, var(--accent), transparent)" }} />
       </div>
     </section>
   );
@@ -772,7 +897,7 @@ function About() {
             <div className="glass" style={{ borderRadius:12, padding:28, position:"relative", overflow:"hidden" }}>
               {/* Corner decoration */}
               <div style={{ position:"absolute", top:0, right:0, width:80, height:80,
-                            background:"linear-gradient(225deg, rgba(0,229,191,0.12), transparent)", borderRadius:"0 12px 0 0" }} />
+                              background:"linear-gradient(225deg, rgba(120,97,255,0.12), transparent)", borderRadius:"0 12px 0 0" }} />
               <div className="section-num mb-4">quick facts</div>
               {[
                 { k:"Current Role", v:"Backend Developer @ TCS" },
@@ -880,7 +1005,7 @@ function Skills() {
     <section id="skills" className="section" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
         <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">03 / skills</div>
+          <div className="section-num mb-2">04 / skills</div>
           <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
             Technical <span style={{ color:"var(--accent)" }}>Skills</span>
           </h2>
@@ -927,7 +1052,7 @@ function Projects() {
     <section id="projects" className="section" style={{ background:"var(--bg2)" }} ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
         <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">04 / projects</div>
+          <div className="section-num mb-2">03 / projects</div>
           <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
             Featured <span style={{ color:"var(--accent)" }}>Projects</span>
           </h2>
@@ -940,11 +1065,11 @@ function Projects() {
                  style={{ borderRadius:12, padding:28, position:"relative", overflow:"hidden" }}>
               {/* Glow corner */}
               <div style={{ position:"absolute", top:0, right:0, width:100, height:100,
-                            background:"radial-gradient(circle at top right, rgba(0,229,191,0.08), transparent)",
+                            background:"radial-gradient(circle at top right, rgba(120,97,255,0.08), transparent)",
                             pointerEvents:"none" }} />
 
               <div className="flex items-center justify-between mb-4">
-                <div style={{ width:40, height:40, borderRadius:10, background:"rgba(0,229,191,0.1)",
+                <div style={{ width:40, height:40, borderRadius:10, background:"rgba(120,97,255,0.1)",
                               display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.2rem" }}>
                   🚀
                 </div>
@@ -1030,8 +1155,8 @@ function Education() {
                       {e.period}
                     </span>
                     <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.72rem", color:"var(--accent)",
-                                    background:"rgba(0,229,191,0.08)", padding:"4px 10px", borderRadius:4,
-                                    border:"1px solid rgba(0,229,191,0.2)" }}>
+                                    background:"rgba(120,97,255,0.08)", padding:"4px 10px", borderRadius:4,
+                                    border:"1px solid rgba(120,97,255,0.2)" }}>
                       {e.grade}
                     </span>
                   </div>
@@ -1047,7 +1172,7 @@ function Education() {
             {DATA.achievements.map((a, i) => (
               <div key={i} className={`glass card-hover reveal stagger-${i+2} ${inView?"visible":""} mb-4`}
                    style={{ borderRadius:12, padding:24, display:"flex", gap:16 }}>
-                <div style={{ width:44, height:44, borderRadius:10, background:"rgba(0,229,191,0.08)",
+                <div style={{ width:44, height:44, borderRadius:10, background:"rgba(120,97,255,0.08)",
                               display:"flex", alignItems:"center", justifyContent:"center",
                               fontSize:"1.3rem", flexShrink:0 }}>
                   {a.icon}
@@ -1066,18 +1191,19 @@ function Education() {
 }
 
 /* ─── EMAILJS CONFIG — Fill these in after signing up at emailjs.com ── */
-const EMAILJS_SERVICE_ID  = "service_tliwq9u";   // e.g. "service_abc123"
-const EMAILJS_TEMPLATE_ID = "template_1rjw3wq";  // e.g. "template_xyz789"
-const EMAILJS_PUBLIC_KEY  = "0pe61XpkCaCMcFEx8";   // e.g. "abcDEFghiJKL..."
+const EMAILJS_SERVICE_ID  = "service_m58nl3f";   // e.g. "service_abc123"
+const EMAILJS_TEMPLATE_ID = "template_pxpvro5";  // e.g. "template_xyz789"
+const EMAILJS_PUBLIC_KEY  = "Fss2ZcZqimqAHGVX6";   // e.g. "abcDEFghiJKL..."
 
 /* ─── CONTACT ────────────────────────────────────────────────── */
 function Contact() {
   const [ref, inView] = useInView();
   const [form, setForm] = useState({ name:"", email:"", message:"" });
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const mailtoHref = `mailto:${DATA.email}?subject=${encodeURIComponent(`Portfolio message from ${form.name || "a visitor"}`)}&body=${encodeURIComponent(`From: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.message) {
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus("error_fields");
       return;
     }
@@ -1101,7 +1227,6 @@ function Contact() {
     } catch (err) {
       console.error("EmailJS error:", err);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 4000);
     }
   };
 
@@ -1151,7 +1276,7 @@ function Contact() {
                  className="glass card-hover flex items-center gap-4 mb-4"
                  style={{ borderRadius:10, padding:"14px 20px", textDecoration:"none",
                           transition:"border-color 0.2s, transform 0.2s, box-shadow 0.2s" }}>
-                <div style={{ width:36, height:36, borderRadius:8, background:"rgba(0,229,191,0.1)",
+                <div style={{ width:36, height:36, borderRadius:8, background:"rgba(120,97,255,0.1)",
                               display:"flex", alignItems:"center", justifyContent:"center", color:"var(--accent)" }}>
                   {c.icon}
                 </div>
@@ -1172,21 +1297,26 @@ function Contact() {
               {/* ── Status banners ── */}
               {status === "success" && (
                 <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(0,229,191,0.1)", border:"1px solid rgba(0,229,191,0.3)", color:"var(--accent)",
+                              background:"rgba(120,97,255,0.1)", border:"1px solid rgba(120,97,255,0.3)", color:"var(--accent)",
                               display:"flex", alignItems:"center", gap:8 }}>
                   <span>✓</span> Message sent! I'll get back to you soon.
                 </div>
               )}
               {status === "error" && (
                 <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(255,107,53,0.08)", border:"1px solid rgba(255,107,53,0.3)", color:"var(--accent2)",
-                              display:"flex", alignItems:"center", gap:8 }}>
-                  <span>✕</span> Something went wrong. Please email me directly.
+                              background:"rgba(229,117,131,0.08)", border:"1px solid rgba(229,117,131,0.3)", color:"var(--accent2)" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                    <span>✕</span> The message service is unavailable. Your message is still here.
+                  </div>
+                  <a href={mailtoHref}
+                     style={{ display:"inline-block", marginTop:10, color:"var(--accent)", textDecoration:"underline", fontWeight:600 }}>
+                    Open in your email app
+                  </a>
                 </div>
               )}
               {status === "error_fields" && (
                 <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(255,107,53,0.08)", border:"1px solid rgba(255,107,53,0.3)", color:"var(--accent2)",
+                              background:"rgba(229,117,131,0.08)", border:"1px solid rgba(229,117,131,0.3)", color:"var(--accent2)",
                               display:"flex", alignItems:"center", gap:8 }}>
                   <span>⚠</span> Please fill in all fields before sending.
                 </div>
@@ -1286,14 +1416,13 @@ function App() {
 
   return (
     <>
-      <CursorGlow />
       <Navbar theme={theme} setTheme={setTheme} />
       <main>
         <Hero />
         <About />
         <Experience />
-        <Skills />
         <Projects />
+        <Skills />
         <Education />
         <Contact />
       </main>
