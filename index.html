@@ -492,7 +492,7 @@ const { useState, useEffect, useRef, useCallback } = React;
 const DATA = {
   name: "Diya Bobby",
   role: "Backend Engineer",
-  tagline: "Building scalable microservices that power reliable production systems.",
+  tagline: "Java Backend developer with 2+ years of experience designing, developing, and maintaining scalable, event-driven microservices on Java and SpringBoot.",
   email: "1999diya@gmail.com",
   linkedin: "http://www.linkedin.com/in/diyabobby1999",
   leetcode:"https://leetcode.com/Diya_99/",
@@ -536,19 +536,11 @@ const DATA = {
   },
   projects: [
     {
-      title: "Events Platform",
-      desc: "A full-stack events platform connecting students across NITs, enabling event discovery, participation, and organizer tools for participant data management.",
-      stack: ["ReactJS", "NextJS", "TailwindCSS", "MongoDB"],
+      title: "Online Banking Platform",
+      desc: "Built a secure, resilient microservices-based online banking platform with Spring Boot, OAuth2, Hibernate/JPA, Config Server, and Resilience4j.",
+      stack: ["Spring Boot", "OAuth2", "Hibernate/JPA", "Resilience4j"],
       period: "Jun 2021 – Jan 2022",
-      github: "https://github.com/Diyabobby/",
-      live: null
-    },
-    {
-      title: "Events Platform",
-      desc: "A full-stack events platform connecting students across NITs, enabling event discovery, participation, and organizer tools for participant data management.",
-      stack: ["ReactJS", "NextJS", "TailwindCSS", "MongoDB"],
-      period: "Jun 2021 – Jan 2022",
-      github: "https://github.com/Diyabobby/",
+      github: "https://github.com/Diyabobby/online_Banking_application",
       live: null
     }
   ],
@@ -559,11 +551,18 @@ const DATA = {
       period: "Oct 2022 – Jul 2024",
       grade: "CGPA 8.77 / 10",
       highlight: "National Institute of Technology"
-    }
+    },
+    {
+      degree: "Bachelor of Technology",
+      institution: "VAST, Kerala",
+      period: "Aug 2021 – Jul 2024",
+      grade: "CGPA 8.80 / 10",
+        highlight: "Vidya Academy of Science and Technology"
+      }
   ],
   achievements: [
-    { title: "Spotlight Award", desc: "Recognized for designing and implementing a client-facing dashboard that streamlined partner code selection and quarterly data slicing at Epsilon.", icon: "⚡" },
-    { title: "AIR 91 — NIMCET 2020", desc: "Secured All India Rank 91 in the National Institute of Technology MCA Common Entrance Test among thousands of applicants nationwide.", icon: "🏆" }
+    { title: "Outstanding Performance Award (Jan 2026)", desc: "Awarded by TCS and Nest for exceptional contributions to the new Mobile App features and rapid upskilling across multiple technologies.", icon: "⚡" },
+    { title: "AIR 663 — GATE 2022", desc: "Secured All India Rank 663 in the Graduate Aptitude Test in Engineering among thousands of applicants nationwide.", icon: "🏆" }
   ]
 };
 
@@ -815,7 +814,8 @@ function Hero() {
           <div className="hero-stats mt-7 flex gap-8">
             {[
               { label:"Years Experience", value:"2+" },
-              { label:"APIs Developed", value:"40+" }
+              { label:"APIs Delivered", value:"40+" },
+              { label:"GATE AIR", value:"663" }
             ].map(s => (
               <div key={s.label}>
                 <div className="font-display">{s.value}</div>
@@ -1191,9 +1191,9 @@ function Education() {
 }
 
 /* ─── EMAILJS CONFIG — Fill these in after signing up at emailjs.com ── */
-const EMAILJS_SERVICE_ID  = "service_m58nl3f";   // e.g. "service_abc123"
-const EMAILJS_TEMPLATE_ID = "template_pxpvro5";  // e.g. "template_xyz789"
-const EMAILJS_PUBLIC_KEY  = "Fss2ZcZqimqAHGVX6";   // e.g. "abcDEFghiJKL..."
+const EMAILJS_SERVICE_ID  = "service_m58nl3f";
+const EMAILJS_TEMPLATE_ID = "template_pxpvro5";
+const EMAILJS_PUBLIC_KEY  = "Fss2ZcZqimqAHGVX6";
 
 /* ─── CONTACT ────────────────────────────────────────────────── */
 function Contact() {
