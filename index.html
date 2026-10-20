@@ -1,1437 +1,789 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diya Bobby — Backend Engineer</title>
-<meta name="description" content="Backend Engineer with 2+ years of experience designing scalable microservices using Java, Spring Boot, and REST APIs." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
+<meta name="description" content="Diya Bobby — Backend Engineer with 2+ years of experience in Java, Spring Boot, microservices, and REST APIs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root {
-    --bg: #080c10;
-    --bg2: #0d1117;
-    --surface: #111820;
-    --border: rgba(255,255,255,0.07);
-    --accent: #00e5bf;
-    --accent2: #ff6b35;
-    --accent3: #7c5cfc;
-    --text: #e8edf2;
-    --muted: #6b7d8f;
-    --glow: 0 0 40px rgba(0,229,191,0.15);
+    --bg: #0A0E17;
+    --surface: #121A2B;
+    --surface-2: #1A2338;
+    --text: #EDF1F7;
+    --text-muted: #8E9BB8;
+    --teal: #2DD4B0;
+    --amber: #FFB238;
+    --violet: #9B7BFF;
+    --line: rgba(237, 241, 247, 0.09);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
-  [data-theme="light"] {
-    --bg: #f5f3ef;
-    --bg2: #ede9e3;
-    --surface: #ffffff;
-    --border: rgba(0,0,0,0.08);
-    --accent: #008f77;
-    --accent2: #e05a20;
-    --accent3: #5c3df5;
-    --text: #1a1f26;
-    --muted: #6b7d8f;
-    --glow: 0 0 40px rgba(0,143,119,0.12);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
   html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Mono', monospace;
+    font-family: var(--font-body);
+    line-height: 1.6;
     overflow-x: hidden;
-    transition: background 0.4s, color 0.4s;
-  }
-  ::selection { background: var(--accent); color: #000; }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content:'';
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.45;
   }
 
-  /* CANVAS */
-  #hero-canvas { position:absolute; inset:0; z-index:0; }
+  a { color: inherit; text-decoration: none; }
 
-  /* TYPOGRAPHY */
-  .font-display { font-family: 'Syne', sans-serif; }
-  .font-serif  { font-family: 'Instrument Serif', serif; }
+  ::selection { background: var(--teal); color: var(--bg); }
 
-  /* GLASS */
-  .glass {
-    background: rgba(255,255,255,0.03);
+  /* ── Background texture ─────────────────────────────────────── */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── Nav ─────────────────────────────────────────────────────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
     backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
+    background: rgba(10, 14, 23, 0.75);
+    border-bottom: 1px solid var(--line);
   }
-  [data-theme="light"] .glass {
-    background: rgba(255,255,255,0.6);
+  .nav__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav__mark {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+  }
+  .nav__links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav__links a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+  .nav__links a:hover { color: var(--teal); }
+  .nav__links a:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 2px; }
+  @media (max-width: 720px) { .nav__links { display: none; } }
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .hero {
+    padding: 72px 0 64px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: clamp(24px, 3vw, 40px);
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: minmax(0, 1fr); padding-top: 48px; gap: 30px; }
   }
 
-  /* GLOW LINE */
-  .glow-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.5;
-  }
-
-  /* ACCENT TAG */
-  .tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    padding: 3px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--amber);
     letter-spacing: 0.08em;
-    display: inline-block;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero__eyebrow::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(45, 212, 176, 0.6);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(45, 212, 176, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(45, 212, 176, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(45, 212, 176, 0); }
   }
 
-  /* SCROLL REVEAL */
+  .hero__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  .hero__name span {
+    background: linear-gradient(120deg, var(--teal), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero__role {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.4vw, 22px);
+    color: var(--text-muted);
+    margin-top: 14px;
+    font-weight: 500;
+  }
+
+  .hero__summary {
+    margin-top: 22px;
+    max-width: 52ch;
+    color: var(--text-muted);
+    font-size: 15.5px;
+  }
+
+  .hero__location {
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .diagram {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0 4px;
+    overflow: hidden;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .edge { fill: none; stroke: #30465f; stroke-width: 1.6; opacity: .85; }
+  .node-circle { fill: #111d2d; stroke: #26364c; stroke-width: 1.5; transition: stroke .3s ease, filter .3s ease; }
+  .node-circle--active, .node-circle--center { stroke: #00e5d0; stroke-width: 2; }
+  .node-circle--center { fill: #07111c; }
+  .diagram-node:hover .node-circle { stroke: #00e5d0; filter: drop-shadow(0 0 7px rgba(0,229,208,.4)); }
+  .node-label { fill: #c5d8f2; font-family: "JetBrains Mono", "Courier New", monospace; font-size: 12px; font-weight: 500; }
+  .node-label--small { font-size: 10px; }
+  .node-label--center { font-size: 13px; font-weight: 600; }
+  .node-icon { fill: none; stroke: #40dce9; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .node-icon text { fill: #40dce9; stroke: none; font-family: "JetBrains Mono", "Courier New", monospace; font-size: 12px; font-weight: 700; }
+  .node-icon--large { stroke: #00e5d0; stroke-width: 2.4; }
+  .packet { fill: #00f5d4; filter: drop-shadow(0 0 4px #00e5d0); }
+
+  @media (max-width: 860px) {
+    .diagram { width: 100%; max-width: 620px; margin-inline: auto; }
+  }
+  @media (max-width: 480px) {
+    .diagram { width: 100%; max-width: 100%; padding: 0; }
+    .node-label { font-size: 12px; }
+    .node-label--small { font-size: 10px; }
+  }
+
+  /* ── Stats strip ─────────────────────────────────────────────── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0 96px;
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--surface);
+    padding: 26px 20px;
+    text-align: center;
+  }
+  .stat__num {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .stat__label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Section shell ───────────────────────────────────────────── */
+  section { padding: 0 0 96px; }
+  .section__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section__tag {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--amber);
+  }
+  .section__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+  }
+  .section__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ── Experience timeline ─────────────────────────────────────── */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--teal), var(--violet), transparent);
+  }
+  .role { position: relative; margin-bottom: 44px; }
+  .role:last-child { margin-bottom: 0; }
+  .role::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--teal);
+  }
+  .role__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .role__title { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+  .role__company { color: var(--teal); }
+  .role__period {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .role__loc { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .role ul { list-style: none; }
+  .role li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-size: 14.5px;
+  }
+  .role li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+  }
+
+  /* ── Skills ──────────────────────────────────────────────────── */
+  .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 40px; }
+  @media (max-width: 720px) { .skills { grid-template-columns: 1fr; } }
+  .skill-group__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--violet);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color 0.2s ease, transform 0.15s ease;
+  }
+  .tag:hover { border-color: var(--teal); transform: translateY(-1px); }
+
+  /* ── Projects ────────────────────────────────────────────────── */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 780px) { .projects { grid-template-columns: 1fr; } }
+  .proj {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .proj:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .proj__title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .proj__desc { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
+  .proj__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj__tags .tag { font-size: 11px; padding: 4px 9px; }
+
+  /* ── Achievements ────────────────────────────────────────────── */
+  .achievements { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 780px) { .achievements { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .achievements { grid-template-columns: 1fr; } }
+  .ach {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .ach__num {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+  .ach__label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+  /* ── Education ───────────────────────────────────────────────── */
+  .edu {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .edu__degree { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+  .edu__school { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+  .edu__meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); text-align: right; }
+
+  /* ── Contact ─────────────────────────────────────────────────── */
+  .contact {
+    text-align: center;
+    padding: 72px 0 100px;
+  }
+  .contact__title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .contact__sub { color: var(--text-muted); max-width: 46ch; margin: 0 auto 40px; }
+  .contact__links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    padding: 13px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .btn--primary {
+    background: var(--teal);
+    color: var(--bg);
+    border-color: var(--teal);
+    font-weight: 600;
+  }
+  .btn--primary:hover { background: #23b997; }
+  .btn--ghost { color: var(--text); }
+  .btn--ghost:hover { border-color: var(--violet); color: var(--violet); }
+  .btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 0;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── Scroll reveal ───────────────────────────────────────────── */
   .reveal {
     opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-left { opacity:0; transform:translateX(-40px); transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
-  .reveal-left.visible { opacity:1; transform:translateX(0); }
-  .reveal-right { opacity:0; transform:translateX(40px); transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
-  .reveal-right.visible { opacity:1; transform:translateX(0); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-  /* STAGGER */
-  .stagger-1 { transition-delay: 0.05s; }
-  .stagger-2 { transition-delay: 0.12s; }
-  .stagger-3 { transition-delay: 0.19s; }
-  .stagger-4 { transition-delay: 0.26s; }
-  .stagger-5 { transition-delay: 0.33s; }
-  .stagger-6 { transition-delay: 0.40s; }
+  /* Contact message form carried over from the original portfolio */
+  .message-form-wrap { max-width: 760px; margin: 44px auto 0; text-align: left; }
+  .message-form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(22px, 4vw, 34px); box-shadow: 0 18px 50px rgba(0,0,0,.16); }
+  .message-form__heading { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin: 0 0 24px; }
+  .message-field { margin-bottom: 18px; }
+  .message-field label { display: block; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); margin-bottom: 8px; }
+  .message-field input, .message-field textarea { display: block; width: 100%; box-sizing: border-box; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 13px 14px; font: 14px var(--font-body); outline: none; transition: border-color .2s, box-shadow .2s; }
+  .message-field input:focus, .message-field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(45,212,176,.1); }
+  .message-field textarea { min-height: 140px; resize: vertical; }
+  .message-field input::placeholder, .message-field textarea::placeholder { color: var(--text-muted); opacity: .75; }
+  .message-submit { width: 100%; justify-content: center; cursor: pointer; }
+  .message-submit:disabled { opacity: .65; cursor: wait; }
+  .message-status { display: none; padding: 12px 14px; border-radius: 8px; margin-bottom: 18px; font-size: 13px; line-height: 1.5; }
+  .message-status.is-visible { display: block; }
+  .message-status--success { color: var(--teal); background: rgba(45,212,176,.08); border: 1px solid rgba(45,212,176,.28); }
+  .message-status--error { color: #ff9b9b; background: rgba(255,100,100,.07); border: 1px solid rgba(255,100,100,.25); }
+  .message-status a { color: var(--teal); text-decoration: underline; }
+  @media (max-width: 560px) { .message-form { padding: 20px 16px; } }
 
-  /* CURSOR GLOW */
-  .cursor-glow {
-    position: fixed;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,229,191,0.06) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    transition: transform 0.08s linear;
-  }
-
-  /* HERO TEXT ANIMATION */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(24px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  .cursor-blink { animation: blink 1s infinite; }
-
-  @keyframes float {
-    0%,100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  .float { animation: float 5s ease-in-out infinite; }
-
-  @keyframes gradientShift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .gradient-text {
-    background: linear-gradient(135deg, var(--accent) 0%, #00b8ff 40%, var(--accent3) 70%, var(--accent) 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 4s ease infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* NAVBAR */
-  .nav-link {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    transition: color 0.2s;
-    cursor: pointer;
-    position: relative;
-  }
-  .nav-link::after {
-    content:'';
-    position:absolute; bottom:-3px; left:0; width:0; height:1px;
-    background: var(--accent);
-    transition: width 0.3s;
-  }
-  .nav-link:hover { color: var(--accent); }
-  .nav-link:hover::after { width:100%; }
-  .nav-link.active { color: var(--accent); }
-  .nav-link.active::after { width:100%; }
-
-  /* SKILL BAR */
-  .skill-fill {
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent3));
-    border-radius: 1px;
-    width: 0;
-    transition: width 1.2s cubic-bezier(.22,1,.36,1);
-  }
-
-  /* TIMELINE */
-  .timeline-line {
-    position:absolute; left: 0; top:0; bottom:0; width:1px;
-    background: linear-gradient(to bottom, var(--accent), transparent);
-  }
-  .timeline-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 12px var(--accent);
-    flex-shrink: 0;
-  }
-
-  /* CARD HOVER */
-  .card-hover {
-    transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s, border-color 0.3s;
-  }
-  .card-hover:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: var(--glow);
-    border-color: rgba(0,229,191,0.3);
-  }
-
-  /* BUTTON */
-  .btn-primary {
-    position: relative; overflow: hidden;
-    background: var(--accent);
-    color: #000;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 12px 28px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,191,0.35); }
-  .btn-outline {
-    position: relative; overflow: hidden;
-    background: transparent;
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 11px 28px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
-    border: 1px solid var(--border);
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-  /* SECTION */
-  .section { padding: 96px 0; position:relative; z-index:2; }
-
-  /* CHIP */
-  .chip {
-    font-size:0.68rem;
-    padding: 4px 10px;
-    border-radius: 4px;
-    background: rgba(0,229,191,0.08);
-    color: var(--accent);
-    border: 1px solid rgba(0,229,191,0.2);
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.04em;
-    transition: background 0.2s;
-  }
-  .chip:hover { background: rgba(0,229,191,0.18); }
-
-  /* SECTION HEADER */
-  .section-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-  }
-
-  /* CONTACT FORM */
-  .form-input {
-    width:100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px 16px;
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .form-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,229,191,0.08);
-  }
-  .form-input::placeholder { color: var(--muted); }
-  textarea.form-input { resize: vertical; min-height: 120px; }
-
-  /* MOBILE NAV */
-  @media (max-width: 768px) {
-    .mobile-nav { display: flex; }
-    .desktop-nav { display: none; }
-    .section { padding: 64px 0; }
-  }
-  @media (min-width: 769px) {
-    .mobile-nav { display: none; }
-    .desktop-nav { display: flex; }
-  }
-
-  /* PROGRESS RING */
-  @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-  .spin-slow { animation: spin-slow 12s linear infinite; }
-
-  /* GRID BG */
-  .grid-bg {
-    background-image:
-      linear-gradient(rgba(0,229,191,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,191,0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-  }
-
-  /* REFERENCE-INSPIRED PORTFOLIO */
-  :root {
-    --bg: #10131d;
-    --bg2: #171b29;
-    --surface: #1d2231;
-    --border: rgba(237,239,255,0.12);
-    --accent: #a79bff;
-    --accent2: #ff8d9b;
-    --accent3: #7767f5;
-    --text: #f4f3fa;
-    --muted: #a4a7b8;
-    --glow: 0 12px 36px rgba(0,0,0,0.22);
-    --illustration-halo: #26243f;
-    --illustration-grid: #34314f;
-    --illustration-hill: #393459;
-    --illustration-ground: #d7d6df;
-    --illustration-coral: #b76d78;
-    --illustration-coral-light: #d39aa0;
-    --illustration-purple: #7865f5;
-    --illustration-shirt: #b8bfd7;
-    --illustration-laptop: #343849;
-    --illustration-laptop-edge: #596075;
-    --illustration-pants: #343447;
-    --illustration-skin: #efc3b7;
-    --illustration-hair: #3b3446;
-    --illustration-pot: #bac5e8;
-    --illustration-leaf: #8876ff;
-  }
-  body[data-theme="light"] {
-    --bg: #ffffff;
-    --bg2: #f7f7fb;
-    --surface: #ffffff;
-    --border: rgba(36,37,51,0.12);
-    --accent: #6232a0;
-    --accent2: #e57583;
-    --accent3: #7861ff;
-    --text: #171820;
-    --muted: #818697;
-    --glow: 0 12px 36px rgba(49,35,87,0.1);
-    --illustration-halo: #efedff;
-    --illustration-grid: #fff;
-    --illustration-hill: #e6e2ff;
-    --illustration-ground: #d7d6df;
-    --illustration-coral: #b76d78;
-    --illustration-coral-light: #d39aa0;
-    --illustration-purple: #7865f5;
-    --illustration-shirt: #b8bfd7;
-    --illustration-laptop: #343849;
-    --illustration-laptop-edge: #596075;
-    --illustration-pants: #343447;
-    --illustration-skin: #efc3b7;
-    --illustration-hair: #3b3446;
-    --illustration-pot: #bac5e8;
-    --illustration-leaf: #7865f5;
-  }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
-  body::before, .cursor-glow { display: none; }
-  .font-display, h1, h2, h3, h4 { font-family: 'DM Sans', sans-serif; letter-spacing: -0.035em; }
-  .section { padding: 96px 0; }
-  nav { background: var(--bg); }
-  nav.glass { background: var(--bg); backdrop-filter: none; }
-  nav > .max-w-6xl { max-width: 1240px; }
-  nav .max-w-6xl { border: 0; }
-  nav .font-display { font-family: 'DM Sans', sans-serif; font-weight: 600; letter-spacing: -0.04em; }
-  .nav-link { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0; text-transform: none; color: var(--muted); }
-  .nav-link::after { display: none; }
-  .nav-link:hover, .nav-link.active { color: var(--accent); }
-  #hero {
-    min-height: 100vh;
-    padding-top: 64px;
-    background: var(--bg);
-  }
-  #hero.grid-bg { background-image: none; }
-  #hero canvas, #hero > div[style*="position: absolute"] { display: none; }
-  #hero > .max-w-6xl {
-    max-width: 1240px;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: clamp(1.5rem, 5vw, 5rem);
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-  #hero .hero-copy { max-width: 510px; }
-  #hero .hero-greeting {
-    font-size: clamp(2.1rem, 4.2vw, 3.15rem);
-    font-weight: 700;
-    letter-spacing: -0.055em;
-    line-height: 1.18;
-  }
-  #hero .gradient-text {
-    color: var(--accent);
-    background: none;
-    animation: none;
-    -webkit-text-fill-color: var(--accent);
-  }
-  #hero .hero-greeting .wave { display: inline-block; transform-origin: 70% 70%; }
-  #hero .hero-role { font-size: 0.98rem !important; color: var(--accent); font-weight: 600; }
-  #hero .hero-description { max-width: 500px !important; font-size: 0.96rem !important; line-height: 1.65; }
-  #hero .hero-socials { display: flex; align-items: center; gap: 10px; }
-  #hero .hero-socials a {
-    width: 36px; height: 36px; display: grid; place-items: center;
-    color: var(--text); background: var(--surface); border: 1px solid var(--border);
-    border-radius: 50%; transition: transform 0.2s, background 0.2s, color 0.2s;
-  }
-  #hero .hero-socials a:hover { transform: translateY(-3px); color: var(--bg); background: var(--accent); }
-  #hero .hero-socials svg { width: 17px; height: 17px; }
-  #hero .hero-actions { gap: 14px; }
-  #hero .btn-primary, #hero .btn-outline {
-    border-radius: 5px; padding: 11px 17px; font-family: 'DM Sans', sans-serif;
-    font-size: 0.68rem; letter-spacing: 0.035em; box-shadow: none;
-  }
-  #hero .btn-primary { background: var(--accent3); color: #fff; }
-  #hero .btn-primary:hover { background: var(--accent); color: var(--bg); box-shadow: none; }
-  #hero .btn-outline { border-color: var(--accent3); color: var(--text); }
-  #hero .btn-outline:hover { background: var(--accent3); color: #fff; border-color: var(--accent3); }
-  #hero .hero-stats { border-top: 1px solid var(--border); padding-top: 18px; max-width: 280px; }
-  #hero .hero-stats .font-display { font-size: 1.35rem !important; color: var(--accent); }
-  #hero .hero-stats > div > div:last-child { font-size: 0.62rem !important; letter-spacing: 0.07em !important; }
-  #hero .hero-illustration { width: 100%; max-width: 610px; justify-self: end; }
-  #hero .hero-illustration svg { display: block; width: 100%; height: auto; overflow: visible; }
-  #hero .hero-scroll-indicator { display: none; }
-  .tag {
-    border: 0; padding: 0; border-radius: 0; background: transparent; box-shadow: none;
-    color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 0.68rem;
-    letter-spacing: 0.045em; text-transform: none;
-  }
-  .glass { background: var(--surface); backdrop-filter: none; border-color: var(--border); border-radius: 10px; }
-  .card-hover:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--glow); }
-  .chip { color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, transparent); border-color: color-mix(in srgb, var(--accent) 24%, transparent); border-radius: 4px; }
-  .chip:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
-  .section-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.09em; }
-  .section h2 { font-family: 'DM Sans', sans-serif; font-size: clamp(2rem, 4vw, 3rem) !important; font-weight: 700 !important; line-height: 1.1; letter-spacing: -0.05em; }
-  .glow-line { background: var(--border); opacity: 1; }
-  #experience, #skills, #contact { background: var(--bg2) !important; }
-  #projects, #education { background: var(--bg) !important; }
-  #experience .glass.card-hover { background: var(--surface); border-radius: 10px !important; }
-  #experience h3, #projects h3, #education h4 { font-family: 'DM Sans', sans-serif; font-weight: 700 !important; letter-spacing: -0.025em; }
-  #skills .glass { background: var(--surface); border-radius: 10px !important; }
-  #skills h3 { font-family: 'DM Sans', sans-serif; }
-  #skills .skill-fill { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
-  #projects .glass.card-hover, #education .glass.card-hover { background: var(--surface); }
-  #contact .glass { background: var(--surface); }
-  .form-input { border-radius: 6px; background: var(--bg); }
-  footer { background: var(--bg) !important; }
-  a, button { -webkit-tap-highlight-color: transparent; }
-  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
-    outline: 2px solid var(--accent); outline-offset: 4px;
-  }
-  @media (max-width: 768px) {
-    .section { padding: 72px 0; }
-    #hero { min-height: auto; padding-top: 64px; }
-    #hero > .max-w-6xl { grid-template-columns: 1fr; padding-top: 5.5rem; gap: 2.5rem; }
-    #hero .hero-copy { max-width: 600px; }
-    #hero .hero-greeting { font-size: clamp(2.25rem, 9vw, 3.4rem); }
-    #hero .hero-illustration { max-width: 520px; justify-self: center; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      scroll-behavior: auto !important; animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
-    }
-  }
 </style>
 </head>
-<body data-theme="dark">
-<div id="root"></div>
-<canvas id="hero-canvas" style="display:none"></canvas>
+<body>
 
-<script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+<div class="bg-grid"></div>
 
-/* ─── DATA ─────────────────────────────────────────────────── */
-const DATA = {
-  name: "Diya Bobby",
-  role: "Backend Engineer",
-  tagline: "Java Backend developer with 2+ years of experience designing, developing, and maintaining scalable, event-driven microservices on Java and SpringBoot.",
-  email: "1999diya@gmail.com",
-  linkedin: "http://www.linkedin.com/in/diyabobby1999",
-  leetcode:"https://leetcode.com/Diya_99/",
-  github: "https://github.com/Diyabobby/",
-  location: "Bengaluru, Karnataka, India",
-  phone: "+91 8281261043",
-  summary: "Backend Engineer with 2+ years of experience designing scalable microservices using Java, Spring Boot, and REST APIs. Proficient in CI/CD, Docker, and secure backend development, with strong fundamentals in DSA, OOP, and clean architecture — building reliable production systems in Agile teams.",
-  strengths: ["Microservices Architecture", "Secure Backend Development", "REST API Design & Optimization", "CI/CD & Containerization", "Production Support & Root Cause Analysis"],
-  experience: [
-    {
-      role: "Software Applications Engineer",
-      company: "Tata Consultancy Services (TCS)",
-      period: "July 2024 – Present",
-      type: "Full-time",
-      achievements: [
-        "Developed and maintained backend microservices for a regulated UK pension platform handling financial and member data for 375,000+ members.", "Developed and optimized 40+ REST APIs using Java and Spring Boot, reducing API response latency by 40% through query tuning and caching strategies.", "Implemented event-driven services using Apache Kafka producers and consumers to enable asynchronous, decoupled communication between microservices.", "Engineered secure authentication and session management using OAuth 2.0 flows, reducing authentication latency by 30% and enabling PIN and biometric login.", "Implemented Single Sign-On (SSO) across mobile and web platforms to provide seamless authentication and access across channels.", "Containerized services using Docker and supported Kubernetes deployments through Jenkins and GitLab CI/CD pipelines in collaboration with DevOps teams.", "Developed unit and integration tests using JUnit and Mockito, while maintaining code quality through SonarQube quality gates.", "Implemented centralized logging and monitoring using Elasticsearch to support faster root cause analysis and production incident resolution.", "Diagnosed production issues, optimized existing modules, and implemented long-term improvements to application stability and performance.", "Collaborated with cross-functional teams in Agile Scrum ceremonies, contributing to requirements analysis, technical discussions, software documentation, and release activities."
-      ]
-    }
-  ],
-  skills: {
-    "Languages": [
-      { name: "Java", level: 96 },
-      { name: "SQL", level: 94 },
-      { name: "Python", level: 55 }
-    ],
-    "Backend & DevOps": [
-      { name: "Spring Boot", level: 90 },
-      { name: "REST APIs", level: 88 },
-      { name: "Docker", level: 82 },
-      { name: "Jenkins", level: 80 },
-      { name: "Microservices", level: 85 },
-      { name: "Maven / Git", level: 90 }
-    ],
-    "Databases": [
-      { name: "MySQL", level: 80 },
-      { name: "PostgreSQL", level: 75 }
-    ],
-    "Testing & Security": [
-      { name: "JUnit / Mockito", level: 85 }
-    ]
-  },
-  projects: [
-    {
-      title: "Online Banking Platform",
-      desc: "Built a secure, resilient microservices-based online banking platform with Spring Boot, OAuth2, Hibernate/JPA, Config Server, and Resilience4j.",
-      stack: ["Spring Boot", "OAuth2", "Hibernate/JPA", "Resilience4j"],
-      period: "Jun 2021 – Jan 2022",
-      github: "https://github.com/Diyabobby/online_Banking_application",
-      live: null
-    }
-  ],
-  education: [
-    {
-      degree: "Master of Technology",
-      institution: "NIT Karnataka, Surathkal",
-      period: "Oct 2022 – Jul 2024",
-      grade: "CGPA 8.77 / 10",
-      highlight: "National Institute of Technology"
-    },
-    {
-      degree: "Bachelor of Technology",
-      institution: "VAST, Kerala",
-      period: "Aug 2021 – Jul 2024",
-      grade: "CGPA 8.80 / 10",
-        highlight: "Vidya Academy of Science and Technology"
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__mark">DB</span>
+    <ul class="nav__links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div>
+      <div class="hero__eyebrow">Open to new opportunities</div>
+      <h1 class="hero__name">Diya<br><span>Bobby</span></h1>
+      <p class="hero__role">Backend Engineer · Java &amp; Spring Boot</p>
+      <p class="hero__summary">Backend Engineer with 2+ years of experience building scalable microservices and REST APIs using Java and Spring Boot. Experienced in secure backend development, CI/CD, and production support for enterprise applications.</p>
+      <p class="hero__location">📍 Bengaluru, Karnataka, India</p>
+    </div>
+
+    <div class="diagram" aria-hidden="true">
+      <svg viewBox="0 0 700 800" xmlns="http://www.w3.org/2000/svg" role="img">
+        <g class="edges">
+          <path class="edge" d="M350 130 L180 230"/>
+          <path class="edge" d="M350 130 L520 230"/>
+          <path class="edge" d="M350 170 L350 315"/>
+          <path class="edge" d="M210 250 L305 335"/>
+          <path class="edge" d="M490 250 L395 335"/>
+          <path class="edge" d="M120 390 L278 390"/>
+          <path class="edge" d="M422 390 L580 390"/>
+          <path class="edge" d="M310 435 L180 555"/>
+          <path class="edge" d="M390 435 L520 555"/>
+          <path class="edge" d="M350 445 L350 650"/>
+          <path class="edge" d="M210 575 L315 650"/>
+          <path class="edge" d="M490 575 L385 650"/>
+        </g>
+
+        <!-- REST APIs -->
+        <g class="diagram-node">
+          <circle class="node-circle node-circle--active" cx="350" cy="130" r="43"/>
+          <g class="node-icon" transform="translate(350 130)">
+            <!-- Clean API/code symbol: balanced brackets around three endpoint lines -->
+            <path d="M-18 -18 L-27 0 L-18 18" stroke-width="2.6"/>
+            <path d="M18 -18 L27 0 L18 18" stroke-width="2.6"/>
+            <path d="M-8 -11 H9 M-8 0 H13 M-8 11 H5" stroke-width="2.6"/>
+            <circle cx="-12" cy="-11" r="1.5" fill="#40dce9" stroke="none"/>
+            <circle cx="-12" cy="0" r="1.5" fill="#40dce9" stroke="none"/>
+            <circle cx="-12" cy="11" r="1.5" fill="#40dce9" stroke="none"/>
+          </g>
+          <text class="node-label" x="350" y="73" text-anchor="middle">REST APIs</text>
+        </g>
+
+        <!-- Java -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="180" cy="230" r="39"/>
+          <g class="node-icon" transform="translate(180 230)">
+            <path d="M-4 10 C8 2 -2 -2 7 -10 C14 -16 4 -20 7 -25"/>
+            <path d="M-19 10 Q0 21 19 10 M-16 17 Q0 26 16 17 M-11 23 Q0 29 11 23"/>
+          </g>
+          <text class="node-label" x="180" y="286" text-anchor="middle">Java</text>
+        </g>
+
+        <!-- Microservices -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="520" cy="230" r="39"/>
+          <g class="node-icon" transform="translate(520 226)">
+            <path d="M0 -24 L13 -16 L0 -8 L-13 -16 Z M-13 -16 V-2 L0 6 V-8 M13 -16 V-2 L0 6"/>
+            <path d="M-20 5 L-9 12 L-20 19 L-31 12 Z M-31 12 V25 L-20 32 V19 M-9 12 V25 L-20 32"/>
+            <path d="M20 5 L31 12 L20 19 L9 12 Z M9 12 V25 L20 32 V19 M31 12 V25 L20 32"/>
+          </g>
+          <text class="node-label" x="520" y="286" text-anchor="middle">Microservices</text>
+        </g>
+
+        <!-- SQL + NoSQL -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="80" cy="390" r="41"/>
+          <g class="node-icon" transform="translate(80 390)">
+            <ellipse cx="-2" cy="-16" rx="15" ry="6"/>
+            <path d="M-17 -16 V13 C-17 21 13 21 13 13 V-16 M-17 -6 C-17 2 13 2 13 -6 M-17 4 C-17 12 13 12 13 4"/>
+          </g>
+          <text class="node-label" x="80" y="448" text-anchor="middle">SQL + NoSQL</text>
+          <text class="node-label node-label--small" x="80" y="469" text-anchor="middle">MySQL / MongoDB</text>
+        </g>
+
+        <!-- Central Spring Boot node -->
+        <g class="diagram-node diagram-node--center">
+          <circle class="node-circle node-circle--center" cx="350" cy="390" r="66"/>
+          <g class="node-icon node-icon--large" transform="translate(350 372)">
+            <path d="M-20 20 C-29 -3 -5 -28 19 -18 C23 -2 10 20 -8 22 C-15 22 -21 16 -20 20 Z"/>
+            <path d="M-23 29 Q-4 2 17 -14"/>
+          </g>
+          <text class="node-label node-label--center" x="350" y="433" text-anchor="middle">Spring Boot</text>
+        </g>
+
+        <!-- OAuth / SSO -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="620" cy="390" r="41"/>
+          <g class="node-icon" transform="translate(620 390)">
+            <path d="M0 -25 L21 -16 L19 5 Q13 20 0 26 Q-13 20 -19 5 L-21 -16 Z"/>
+            <rect x="-8" y="-4" width="16" height="13" rx="2"/>
+            <path d="M-5 -4 V-10 A5 5 0 0 1 5 -10 V-4"/>
+          </g>
+          <text class="node-label" x="620" y="448" text-anchor="middle">OAuth 2.0 / SSO</text>
+        </g>
+
+        <!-- Monitoring and testing: icon centered within the node -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="180" cy="555" r="39"/>
+          <g class="node-icon" transform="translate(180 555)">
+            <path d="M-19 17 V-13 M-7 17 V-2 M5 17 V-20 M17 17 V5"/>
+            <path d="M-23 19 H22"/>
+          </g>
+          <text class="node-label" x="180" y="610" text-anchor="middle">Monitoring &amp; Testing</text>
+          <text class="node-label node-label--small" x="180" y="631" text-anchor="middle">Elasticsearch · JUnit · Mockito</text>
+        </g>
+
+        <!-- Docker and Kubernetes -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="520" cy="555" r="39"/>
+          <g class="node-icon" transform="translate(516 554)">
+            <rect x="-24" y="-5" width="9" height="8"/><rect x="-13" y="-5" width="9" height="8"/>
+            <rect x="-2" y="-5" width="9" height="8"/><rect x="-13" y="-16" width="9" height="8"/>
+            <rect x="-2" y="-16" width="9" height="8"/>
+            <path d="M-27 5 H13 C9 18 -5 20 -16 14 Z"/>
+            <path d="M24 -18 L35 -12 V2 L24 9 L13 2 V-12 Z"/>
+            <circle cx="24" cy="-5" r="5"/>
+          </g>
+          <text class="node-label" x="520" y="610" text-anchor="middle">Docker + Kubernetes</text>
+        </g>
+
+        <!-- CI/CD -->
+        <g class="diagram-node">
+          <circle class="node-circle" cx="350" cy="680" r="40"/>
+          <g class="node-icon" transform="translate(350 680)">
+            <path d="M-28 0 C-28 -17 -8 -17 0 0 C8 17 28 17 28 0 C28 -17 8 -17 0 0 C-8 17 -28 17 -28 0 Z"/>
+            <circle cx="-17" cy="0" r="3"/><circle cx="17" cy="0" r="3"/>
+          </g>
+          <text class="node-label" x="350" y="738" text-anchor="middle">CI/CD</text>
+        </g>
+
+        <!-- Animated packets follow the connectors -->
+        <circle class="packet" r="4">
+          <animateMotion dur="3.4s" repeatCount="indefinite" path="M350 130 L180 230 L305 335"/>
+        </circle>
+        <circle class="packet" r="4">
+          <animateMotion dur="3.8s" begin=".6s" repeatCount="indefinite" path="M350 130 L520 230 L395 335"/>
+        </circle>
+        <circle class="packet" r="4">
+          <animateMotion dur="4s" begin="1s" repeatCount="indefinite" path="M350 390 L180 555 L350 680"/>
+        </circle>
+        <circle class="packet" r="4">
+          <animateMotion dur="4.2s" begin="1.4s" repeatCount="indefinite" path="M350 390 L520 555 L350 680"/>
+        </circle>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section__head reveal"><span class="section__tag">02</span><h2 class="section__title">Skills</h2><div class="section__rule"></div></div>
+    <div class="skills reveal">
+      <div class="skill-group"><div class="skill-group__label">Languages</div><div class="tag-row"><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">Python</span></div></div>
+      <div class="skill-group"><div class="skill-group__label">Backend &amp; Architecture</div><div class="tag-row"><span class="tag">Spring Boot</span><span class="tag">REST APIs</span><span class="tag">Microservices</span><span class="tag">Apache Kafka</span><span class="tag">OAuth 2.0</span><span class="tag">SSO</span><span class="tag">Hibernate/JPA</span></div></div>
+      <div class="skill-group"><div class="skill-group__label">Databases</div><div class="tag-row"><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQL</span></div></div>
+      <div class="skill-group"><div class="skill-group__label">DevOps &amp; Tools</div><div class="tag-row"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">GitLab CI/CD</span><span class="tag">Git</span><span class="tag">Maven</span><span class="tag">SonarQube</span><span class="tag">Elasticsearch</span></div></div>
+      <div class="skill-group" style="grid-column:1 / -1"><div class="skill-group__label">Testing &amp; Fundamentals</div><div class="tag-row"><span class="tag">JUnit</span><span class="tag">Mockito</span><span class="tag">OOP</span><span class="tag">Data Structures &amp; Algorithms</span><span class="tag">Clean Architecture</span><span class="tag">Agile Scrum</span></div></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section__head reveal"><span class="section__tag">03</span><h2 class="section__title">Selected Work</h2><div class="section__rule"></div></div>
+    <div class="projects reveal">
+      <div class="proj"><div class="proj__title">Online Banking Platform</div><p class="proj__desc">Built a secure, resilient microservices-based online banking platform with Spring Boot, OAuth2, Hibernate/JPA, Config Server, and Resilience4j.</p><div class="proj__tags"><span class="tag">Spring Boot</span><span class="tag">OAuth2</span><span class="tag">Hibernate/JPA</span><span class="tag">Resilience4j</span></div><p style="margin-top:14px;font-size:13px"><a href="https://github.com/Diyabobby/online_Banking_application" target="_blank" rel="noopener" style="color:var(--teal)">View on GitHub ↗</a></p></div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="section__head reveal"><span class="section__tag">04</span><h2 class="section__title">Achievements</h2><div class="section__rule"></div></div>
+    <div class="achievements reveal">
+      <div class="ach"><div class="ach__num">Award</div><div class="ach__label">Outstanding Performance Award from TCS and Nest, January 2026, for contributions to new mobile app features and rapid upskilling.</div></div>
+      <div class="ach"><div class="ach__num">AIR 663</div><div class="ach__label">GATE 2022 — All India Rank 663.</div></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section__head reveal"><span class="section__tag">05</span><h2 class="section__title">Education</h2><div class="section__rule"></div></div>
+    <div class="edu reveal"><div><div class="edu__degree">Master of Technology</div><div class="edu__school">National Institute of Technology Karnataka, Surathkal</div></div><div class="edu__meta">Oct 2022 – Jul 2024<br>CGPA: 8.77 / 10</div></div>
+    <div class="edu reveal" style="margin-top:16px"><div><div class="edu__degree">Bachelor of Technology</div><div class="edu__school">Vidya Academy of Science and Technology, Kerala</div></div><div class="edu__meta">Aug 2021 – Jul 2024<br>CGPA: 8.80 / 10</div></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact reveal">
+    <h2 class="contact__title">Let's talk.</h2>
+    <p class="contact__sub">Open to Java Backend Engineer and Backend Developer opportunities. The fastest way to reach me is email.</p>
+    <div class="contact__links">
+      <a class="btn btn--primary" href="mailto:1999diya@gmail.com">✉ 1999diya@gmail.com</a>
+      <a class="btn btn--ghost" href="http://www.linkedin.com/in/diyabobby1999" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/Diyabobby/" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--ghost" href="https://leetcode.com/Diya_99/" target="_blank" rel="noopener">LeetCode ↗</a>
+    </div>
+
+    <div class="message-form-wrap">
+      <form class="message-form" id="messageForm">
+        <h3 class="message-form__heading">Send a message</h3>
+        <div id="messageStatus" class="message-status" role="status" aria-live="polite"></div>
+        <div class="message-field">
+          <label for="senderName">Name</label>
+          <input id="senderName" name="from_name" type="text" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div class="message-field">
+          <label for="senderEmail">Email</label>
+          <input id="senderEmail" name="from_email" type="email" placeholder="your@email.com" autocomplete="email" required>
+        </div>
+        <div class="message-field">
+          <label for="senderMessage">Message</label>
+          <textarea id="senderMessage" name="message" placeholder="Tell me about your opportunity, project, or question..." required></textarea>
+        </div>
+        <button class="btn btn--primary message-submit" id="messageSubmit" type="submit">Send Message ↗</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+  <footer>Diya Bobby — Bengaluru, India · Java Backend Engineer</footer>
+
+<script>
+  // Scroll-reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
       }
-  ],
-  achievements: [
-    { title: "Outstanding Performance Award (Jan 2026)", desc: "Awarded by TCS and Nest for exceptional contributions to the new Mobile App features and rapid upskilling across multiple technologies.", icon: "⚡" },
-    { title: "AIR 663 — GATE 2022", desc: "Secured All India Rank 663 in the Graduate Aptitude Test in Engineering among thousands of applicants nationwide.", icon: "🏆" }
-  ]
-};
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach((el) => io.observe(el));
 
-/* ─── HOOKS ─────────────────────────────────────────────────── */
-function useInView(options = {}) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setInView(true); obs.disconnect(); }
-    }, { threshold: 0.15, ...options });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, inView];
-}
-
-function useActiveSection() {
-  const [active, setActive] = useState("hero");
-  useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-    }, { threshold: 0.4 });
-    sections.forEach(s => obs.observe(s));
-    return () => obs.disconnect();
-  }, []);
-  return active;
-}
-
-function useTyping(words, speed = 80, pause = 1800) {
-  const [text, setText] = useState("");
-  const [wordIdx, setWordIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  useEffect(() => {
-    const word = words[wordIdx];
-    const delay = deleting ? speed / 2 : charIdx === word.length ? pause : speed;
-    const t = setTimeout(() => {
-      if (!deleting && charIdx < word.length) {
-        setText(word.slice(0, charIdx + 1));
-        setCharIdx(c => c + 1);
-      } else if (!deleting && charIdx === word.length) {
-        setDeleting(true);
-      } else if (deleting && charIdx > 0) {
-        setText(word.slice(0, charIdx - 1));
-        setCharIdx(c => c - 1);
-      } else {
-        setDeleting(false);
-        setWordIdx(i => (i + 1) % words.length);
-      }
-    }, delay);
-    return () => clearTimeout(t);
-  }, [text, deleting, charIdx, wordIdx]);
-  return text;
-}
-
-/* ─── PARTICLE CANVAS ──────────────────────────────────────── */
-function ParticleCanvas() {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let W, H, particles = [], raf;
-    const N = 60;
-
-    function resize() {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < N; i++) {
-      particles.push({
-        x: Math.random() * 1920,
-        y: Math.random() * 1080,
-        r: Math.random() * 1.5 + 0.3,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        a: Math.random() * 0.5 + 0.1
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      for (let p of particles) {
-        p.x = (p.x + p.vx + W) % W;
-        p.y = (p.y + p.vy + H) % H;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,229,191,${p.a})`;
-        ctx.fill();
-      }
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0,229,191,${0.08 * (1 - d/120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      raf = requestAnimationFrame(draw);
-    }
-    draw();
-    return () => { window.removeEventListener("resize", resize); cancelAnimationFrame(raf); };
-  }, []);
-  return <canvas ref={canvasRef} style={{ position:"absolute", inset:0, width:"100%", height:"100%", zIndex:0 }} />;
-}
-
-/* ─── NAVBAR ────────────────────────────────────────────────── */
-function Navbar({ theme, setTheme }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const active = useActiveSection();
-
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-
-  const links = [
-    { id:"about", label:"About" },
-    { id:"experience", label:"Experience" },
-    { id:"projects", label:"Projects" },
-    { id:"skills", label:"Skills" },
-    { id:"education", label:"Education" },
-    { id:"contact", label:"Contact" }
-  ];
-
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior:"smooth" });
-    setMobileOpen(false);
+  // EmailJS contact form settings from the original portfolio.
+  const EMAILJS_SERVICE_ID = "service_m58nl3f";
+  const EMAILJS_TEMPLATE_ID = "template_pxpvro5";
+  const EMAILJS_PUBLIC_KEY = "Fss2ZcZqimqAHGVX6";
+  const messageForm = document.getElementById('messageForm');
+  const messageStatus = document.getElementById('messageStatus');
+  const messageSubmit = document.getElementById('messageSubmit');
+  const showMessageStatus = (kind, html) => {
+    messageStatus.className = `message-status message-status--${kind} is-visible`;
+    messageStatus.innerHTML = html;
   };
 
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass shadow-lg" : ""}`}
-         style={{ borderBottom: scrolled ? "1px solid var(--border)" : "none" }}>
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        {/* Logo */}
-        <button onClick={() => scrollTo("hero")}
-                className="font-display text-sm"
-                aria-label="Back to top"
-                style={{ color:"var(--accent)" }}>
-          &lt; Diya Bobby &gt;
-        </button>
-
-        {/* Desktop */}
-        <div className="desktop-nav items-center gap-8">
-          {links.map(l => (
-            <button key={l.id} onClick={() => scrollTo(l.id)}
-                    className={`nav-link ${active === l.id ? "active" : ""}`}>
-              {l.label}
-            </button>
-          ))}
-          <button onClick={() => setTheme(t => t==="dark"?"light":"dark")}
-                  className="ml-4 w-8 h-8 rounded-full flex items-center justify-center transition-all"
-                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                  title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                  style={{ border:"1px solid var(--border)", background:"var(--surface)", color:"var(--muted)" }}>
-            {theme === "dark" ? "☀" : "🌙"}
-          </button>
-        </div>
-
-        {/* Mobile */}
-        <div className="mobile-nav items-center gap-3">
-          <button onClick={() => setTheme(t => t==="dark"?"light":"dark")}
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                  title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                  style={{ border:"1px solid var(--border)", background:"var(--surface)" }}>
-            {theme === "dark" ? "☀" : "🌙"}
-          </button>
-          <button onClick={() => setMobileOpen(o => !o)}
-                  className="w-8 h-8 flex flex-col items-center justify-center gap-1.5">
-            <span style={{ display:"block", height:"1px", width:mobileOpen?"18px":"22px", background:"var(--text)", transform:mobileOpen?"rotate(45deg) translate(2px,3px)":"none", transition:"all 0.3s" }}></span>
-            <span style={{ display:"block", height:"1px", width:"22px", background:"var(--text)", opacity:mobileOpen?0:1, transition:"all 0.2s" }}></span>
-            <span style={{ display:"block", height:"1px", width:mobileOpen?"18px":"14px", background:"var(--text)", transform:mobileOpen?"rotate(-45deg) translate(2px,-3px)":"none", transition:"all 0.3s" }}></span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className="mobile-nav flex-col"
-           style={{ maxHeight: mobileOpen ? "300px" : "0", overflow:"hidden", transition:"max-height 0.4s cubic-bezier(.22,1,.36,1)",
-                    background:"var(--bg2)", borderBottom: mobileOpen ? "1px solid var(--border)" : "none" }}>
-        <div className="px-6 py-4 flex flex-col gap-4">
-          {links.map(l => (
-            <button key={l.id} onClick={() => scrollTo(l.id)}
-                    className={`nav-link text-left ${active === l.id ? "active" : ""}`}
-                    style={{ fontSize:"0.9rem" }}>
-              {l.label}
-            </button>
-          ))}
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-/* ─── HERO ──────────────────────────────────────────────────── */
-function Hero() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior:"smooth" });
-
-  return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center w-full">
-        <div className="hero-copy">
-          <div className="hero-greeting">
-            Hi there <span className="wave" aria-hidden="true">👋</span><br />
-            I'm <span className="gradient-text">Diya Bobby</span>
-          </div>
-          <div className="hero-role mt-4">{DATA.role} · Bengaluru, India</div>
-          <p className="hero-description mt-4 leading-relaxed" style={{ color:"var(--muted)" }}>
-            {DATA.tagline} With 2+ years at <span style={{ color:"var(--text)", fontWeight:600 }}>TCS</span>,
-            I build reliable backend services and APIs used in production.
-          </p>
-
-          <div className="hero-socials mt-5" aria-label="Social links">
-            <a href={DATA.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-            <a href={DATA.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.44c.98 0 1.79-.77 1.79-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
-            </a>
-            <a href={DATA.leetcode} target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.1 13.2a1.1 1.1 0 0 1 0-2.2h5.8a1.1 1.1 0 0 1 0 2.2h-5.8ZM8.6 20.2a4.4 4.4 0 0 1-3.1-1.3L2.1 15.5a5 5 0 0 1 0-7l6.7-6.7a1.1 1.1 0 0 1 1.6 1.6L3.7 10a2.8 2.8 0 0 0 0 4l3.4 3.4a2.2 2.2 0 0 0 3.1 0l2.4-2.4a1.1 1.1 0 1 1 1.6 1.6l-2.4 2.4a4.4 4.4 0 0 1-3.2 1.2Zm3.5-5.3a1.1 1.1 0 0 1-.8-.3l-3-3a1.1 1.1 0 0 1 0-1.6l6.7-6.7a1.1 1.1 0 1 1 1.6 1.6l-5.9 5.9 2.2 2.2a1.1 1.1 0 0 1-.8 1.9Z"/></svg>
-            </a>
-            <a href={`mailto:${DATA.email}`} aria-label="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-            </a>
-          </div>
-
-          <div className="hero-actions mt-6 flex flex-wrap">
-            <button className="btn-primary" onClick={() => scrollTo("contact")}>Contact Me</button>
-            <button className="btn-outline" onClick={() => scrollTo("experience")}>See My Experience</button>
-          </div>
-
-          <div className="hero-stats mt-7 flex gap-8">
-            {[
-              { label:"Years Experience", value:"2+" },
-              { label:"APIs Delivered", value:"40+" },
-              { label:"GATE AIR", value:"663" }
-            ].map(s => (
-              <div key={s.label}>
-                <div className="font-display">{s.value}</div>
-                <div style={{ color:"var(--muted)", textTransform:"uppercase", marginTop:2 }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="hero-illustration" role="img" aria-label="Illustration of an engineer working at a computer">
-          <svg viewBox="0 0 620 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <ellipse cx="315" cy="201" rx="239" ry="166" fill="var(--illustration-halo)" />
-            <path d="M88 126h422M105 181h411M145 74v190M245 42v252M351 41v258M456 75v190" fill="none" stroke="var(--illustration-grid)" strokeWidth="5" />
-            <path d="M77 265c17-45 42-66 75-63 28 2 44 28 69 19 22-8 38-44 68-45 28-1 35 30 63 30 30 0 41-42 75-43 28-1 38 29 59 35 15 4 30-5 49-20v105H77z" fill="var(--illustration-hill)" />
-            <path d="M180 278c38-34 88-37 135-24 43 12 73 47 115 42 28-3 41-24 64-19 17 4 27 21 29 39H142c3-15 16-28 38-38Z" fill="var(--illustration-ground)" />
-            <path d="M171 291h91v88h-91z" fill="var(--illustration-coral)" />
-            <path d="M171 291l44-24 47 24-45 25z" fill="var(--illustration-coral-light)" />
-            <path d="M261 294h220c39 0 65 28 65 58v12H261z" fill="var(--illustration-ground)" />
-            <path d="M461 363h85v-17c0-27-23-49-51-49h-34z" fill="var(--illustration-coral)" />
-            <path d="M480 298c-2-42-20-69-56-81l-93-26-11 38 91 24c22 6 34 25 36 45z" fill="var(--illustration-ground)" />
-            <path d="m347 191 30-34 42 8-13 37z" fill="var(--illustration-purple)" />
-            <path d="m337 201 12-16 37 11-6 19-41-4z" fill="var(--illustration-purple)" />
-            <path d="M235 193c-18 11-34 29-47 56l-37 17 8 13 48-15 43-45z" fill="var(--illustration-shirt)" />
-            <path d="m244 188 48 4 25 57-55 18-48-40z" fill="var(--illustration-shirt)" />
-            <path d="m263 206 64 7 12 43-73-4z" fill="var(--illustration-laptop)" />
-            <path d="m263 206 64 7-2 6-61-6z" fill="var(--illustration-laptop-edge)" />
-            <path d="m294 251 46 9-16 6-47-8z" fill="var(--illustration-laptop-edge)" />
-            <path d="m236 241-45 43-46 11-8-9 39-17 34-52z" fill="var(--illustration-pants)" />
-            <path d="m138 286 12 7-9 14-19 3-8-5 11-10z" fill="var(--illustration-skin)" />
-            <path d="m270 251-39 48-39 16-8-8 27-21 21-57z" fill="var(--illustration-pants)" />
-            <path d="m190 309 10 7-11 14-19 4-8-5 12-12z" fill="var(--illustration-skin)" />
-            <path d="m235 183 16-35 27 8 8 37-35 18z" fill="var(--illustration-skin)" />
-            <path d="m236 157 5-22 31-8 20 18-8 24-13-9-12 17-12-12-5 20-12-8z" fill="var(--illustration-hair)" />
-            <path d="m246 159-8 26 15 4 12-23z" fill="var(--illustration-skin)" />
-            <path d="M517 331h31v31h-31z" fill="var(--illustration-pot)" />
-            <path d="M532 331v-33m0 17-12-12m12 5 10-14m-10 25 13-8" fill="none" stroke="var(--illustration-leaf)" strokeWidth="5" strokeLinecap="round" />
-            <circle cx="115" cy="110" r="6" fill="var(--accent3)" opacity=".8" />
-            <circle cx="494" cy="130" r="5" fill="var(--illustration-coral)" opacity=".9" />
-            <path d="M403 89h28m-14-14v28M139 209h20m-10-10v20" stroke="var(--accent3)" strokeWidth="3" strokeLinecap="round" opacity=".65" />
-          </svg>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── ABOUT ─────────────────────────────────────────────────── */
-function About() {
-  const [ref, inView] = useInView();
-  return (
-    <section id="about" className="section" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView ? "visible" : ""}`}>
-          <div className="section-num mb-2">01 / about</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            About <span style={{ color:"var(--accent)" }}>Me</span>
-          </h2>
-        </div>
-
-        <div className="glow-line mt-6 mb-10" />
-
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <p className={`reveal leading-relaxed ${inView?"visible":""}`}
-               style={{ color:"var(--muted)", fontSize:"0.95rem", lineHeight:1.85 }}>
-              {DATA.summary}
-            </p>
-            <div className={`mt-8 grid grid-cols-2 gap-4 reveal stagger-2 ${inView?"visible":""}`}>
-              {DATA.strengths.map(s => (
-                <div key={s} className="glass card-hover" style={{ borderRadius:8, padding:"12px 16px", display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ color:"var(--accent)", fontSize:"1rem" }}>▸</span>
-                  <span style={{ fontSize:"0.78rem", fontWeight:500, color:"var(--text)" }}>{s}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={`reveal-right ${inView?"visible":""}`}>
-            <div className="glass" style={{ borderRadius:12, padding:28, position:"relative", overflow:"hidden" }}>
-              {/* Corner decoration */}
-              <div style={{ position:"absolute", top:0, right:0, width:80, height:80,
-                              background:"linear-gradient(225deg, rgba(120,97,255,0.12), transparent)", borderRadius:"0 12px 0 0" }} />
-              <div className="section-num mb-4">quick facts</div>
-              {[
-                { k:"Current Role", v:"Backend Developer @ TCS" },
-                { k:"Location", v:"Bengaluru, KA, India" },
-                { k:"Email", v:"1999diya@gmail.com" },
-                { k:"Education", v:"MTECH, NIT Karnataka" },
-                { k:"CGPA", v:"8.77 / 10" }
-              ].map(({ k, v }) => (
-                <div key={k} className="flex justify-between py-3" style={{ borderBottom:"1px solid var(--border)", fontSize:"0.82rem" }}>
-                  <span style={{ color:"var(--muted)" }}>{k}</span>
-                  <span style={{ color:"var(--text)", fontWeight:500, textAlign:"right", maxWidth:"55%" }}>{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── EXPERIENCE ─────────────────────────────────────────────── */
-function Experience() {
-  const [ref, inView] = useInView();
-  return (
-    <section id="experience" className="section" ref={ref}
-             style={{ background:"var(--bg2)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">02 / experience</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            Work <span style={{ color:"var(--accent)" }}>Experience</span>
-          </h2>
-        </div>
-        <div className="glow-line mt-6 mb-12" />
-
-        <div className="relative pl-6" style={{ borderLeft:"1px solid var(--border)" }}>
-          {DATA.experience.map((exp, i) => (
-            <div key={i} className={`relative mb-12 last:mb-0 reveal stagger-${i+1} ${inView?"visible":""}`}>
-              {/* Dot */}
-              <div style={{ position:"absolute", left:-28, top:6, width:10, height:10, borderRadius:"50%",
-                            background:"var(--accent)", boxShadow:"0 0 12px var(--accent)" }} />
-
-              <div className="glass card-hover" style={{ borderRadius:12, padding:28, marginLeft:4 }}>
-                <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="font-display" style={{ fontSize:"1.2rem", fontWeight:700, color:"var(--text)" }}>
-                      {exp.role}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span style={{ color:"var(--accent)", fontSize:"0.85rem", fontWeight:500 }}>{exp.company}</span>
-                      <span style={{ color:"var(--border)", fontSize:"0.7rem" }}>•</span>
-                      <span className="tag" style={{ fontSize:"0.6rem", padding:"2px 8px" }}>{exp.type}</span>
-                    </div>
-                  </div>
-                  <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem", color:"var(--muted)",
-                                  background:"var(--surface)", padding:"4px 12px", borderRadius:4,
-                                  border:"1px solid var(--border)", whiteSpace:"nowrap" }}>
-                    {exp.period}
-                  </span>
-                </div>
-                <ul className="space-y-2">
-                  {exp.achievements.map((a, j) => (
-                    <li key={j} className="flex gap-3" style={{ fontSize:"0.82rem", color:"var(--muted)", lineHeight:1.7 }}>
-                      <span style={{ color:"var(--accent)", marginTop:2, flexShrink:0 }}>›</span>
-                      <span>{a}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── SKILLS ─────────────────────────────────────────────────── */
-function SkillBar({ name, level, inView, delay }) {
-  const [filled, setFilled] = useState(false);
-  useEffect(() => {
-    if (inView) {
-      const t = setTimeout(() => setFilled(true), delay);
-      return () => clearTimeout(t);
-    }
-  }, [inView, delay]);
-
-  return (
-    <div className="mb-4">
-      <div className="flex justify-between mb-1.5" style={{ fontSize:"0.78rem" }}>
-        <span style={{ color:"var(--text)" }}>{name}</span>
-        <span style={{ color:"var(--muted)" }}>{level}%</span>
-      </div>
-      <div style={{ height:2, background:"var(--border)", borderRadius:1 }}>
-        <div className="skill-fill" style={{ width: filled ? `${level}%` : "0" }} />
-      </div>
-    </div>
-  );
-}
-
-function Skills() {
-  const [ref, inView] = useInView();
-  return (
-    <section id="skills" className="section" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">04 / skills</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            Technical <span style={{ color:"var(--accent)" }}>Skills</span>
-          </h2>
-        </div>
-        <div className="glow-line mt-6 mb-12" />
-
-        <div className="grid md:grid-cols-2 gap-10">
-          {Object.entries(DATA.skills).map(([cat, skills], ci) => (
-            <div key={cat} className={`glass reveal stagger-${ci+1} ${inView?"visible":""}`}
-                 style={{ borderRadius:12, padding:28 }}>
-              <div className="flex items-center gap-3 mb-6">
-                <div style={{ width:3, height:20, background:"var(--accent)", borderRadius:2 }} />
-                <h3 className="font-display" style={{ fontWeight:700, fontSize:"0.95rem", textTransform:"uppercase", letterSpacing:"0.08em" }}>
-                  {cat}
-                </h3>
-              </div>
-              {skills.map((s, i) => (
-                <SkillBar key={s.name} {...s} inView={inView} delay={ci * 100 + i * 80} />
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Concepts chips */}
-        <div className={`mt-10 glass reveal stagger-${Object.keys(DATA.skills).length+1} ${inView?"visible":""}`}
-             style={{ borderRadius:12, padding:28 }}>
-          <div className="section-num mb-4">core concepts</div>
-          <div className="flex flex-wrap gap-2">
-            {["DSA", "OOP", "SOLID Principles", "Design Patterns", "Concurrency", "Multithreading",
-              "Hibernate", "REST APIs", "CI/CD", "Agile / Scrum", "Code Review"].map(t => (
-              <span key={t} className="chip">{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── PROJECTS ───────────────────────────────────────────────── */
-function Projects() {
-  const [ref, inView] = useInView();
-  return (
-    <section id="projects" className="section" style={{ background:"var(--bg2)" }} ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">03 / projects</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            Featured <span style={{ color:"var(--accent)" }}>Projects</span>
-          </h2>
-        </div>
-        <div className="glow-line mt-6 mb-12" />
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {DATA.projects.map((p, i) => (
-            <div key={i} className={`glass card-hover reveal stagger-${i+1} ${inView?"visible":""}`}
-                 style={{ borderRadius:12, padding:28, position:"relative", overflow:"hidden" }}>
-              {/* Glow corner */}
-              <div style={{ position:"absolute", top:0, right:0, width:100, height:100,
-                            background:"radial-gradient(circle at top right, rgba(120,97,255,0.08), transparent)",
-                            pointerEvents:"none" }} />
-
-              <div className="flex items-center justify-between mb-4">
-                <div style={{ width:40, height:40, borderRadius:10, background:"rgba(120,97,255,0.1)",
-                              display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.2rem" }}>
-                  🚀
-                </div>
-                <div className="flex gap-2">
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noopener"
-                       className="w-8 h-8 rounded-full flex items-center justify-center glass"
-                       style={{ fontSize:"0.7rem", color:"var(--muted)", transition:"color 0.2s" }}
-                       onMouseEnter={e=>e.currentTarget.style.color="var(--accent)"}
-                       onMouseLeave={e=>e.currentTarget.style.color="var(--muted)"}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <h3 className="font-display" style={{ fontSize:"1.2rem", fontWeight:700, marginBottom:8 }}>{p.title}</h3>
-              <p style={{ fontSize:"0.83rem", color:"var(--muted)", lineHeight:1.75, marginBottom:16 }}>{p.desc}</p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {p.stack.map(t => <span key={t} className="chip">{t}</span>)}
-              </div>
-
-              <div style={{ fontSize:"0.7rem", color:"var(--muted)", fontFamily:"'DM Mono',monospace" }}>
-                📅 {p.period}
-              </div>
-            </div>
-          ))}
-
-          {/* More coming */}
-          <div className={`glass reveal stagger-2 ${inView?"visible":""}`}
-               style={{ borderRadius:12, padding:28, border:"1px dashed var(--border)",
-                        display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-                        minHeight:200, textAlign:"center", gap:12 }}>
-            <div style={{ fontSize:"2rem" }}>⚡</div>
-            <div className="font-display" style={{ fontWeight:700, fontSize:"0.95rem" }}>More Coming Soon</div>
-            <div style={{ fontSize:"0.8rem", color:"var(--muted)" }}>Additional projects are in progress and will be added shortly.</div>
-            <a href={DATA.github} target="_blank" rel="noopener" className="tag mt-2" style={{ cursor:"pointer" }}>
-              View GitHub →
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── EDUCATION ──────────────────────────────────────────────── */
-function Education() {
-  const [ref, inView] = useInView();
-  return (
-    <section id="education" className="section" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">05 / education</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            Education & <span style={{ color:"var(--accent)" }}>Achievements</span>
-          </h2>
-        </div>
-        <div className="glow-line mt-6 mb-12" />
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Education */}
-          <div>
-            <h3 className="font-display mb-6" style={{ fontWeight:700, fontSize:"1rem", textTransform:"uppercase",
-                                                         letterSpacing:"0.1em", color:"var(--muted)" }}>Academic</h3>
-            {DATA.education.map((e, i) => (
-              <div key={i} className={`glass card-hover reveal stagger-${i+1} ${inView?"visible":""}`}
-                   style={{ borderRadius:12, padding:28, position:"relative", overflow:"hidden" }}>
-                <div style={{ position:"absolute", top:0, left:0, width:4, height:"100%",
-                              background:"linear-gradient(to bottom, var(--accent), var(--accent3))",
-                              borderRadius:"12px 0 0 12px" }} />
-                <div style={{ paddingLeft:12 }}>
-                  <div className="section-num mb-2">{e.highlight}</div>
-                  <h4 className="font-display" style={{ fontSize:"1.1rem", fontWeight:700 }}>{e.degree}</h4>
-                  <div style={{ color:"var(--accent)", fontSize:"0.85rem", marginTop:4 }}>{e.institution}</div>
-                  <div className="flex items-center gap-4 mt-4">
-                    <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.72rem", color:"var(--muted)",
-                                    background:"var(--surface)", padding:"4px 10px", borderRadius:4,
-                                    border:"1px solid var(--border)" }}>
-                      {e.period}
-                    </span>
-                    <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.72rem", color:"var(--accent)",
-                                    background:"rgba(120,97,255,0.08)", padding:"4px 10px", borderRadius:4,
-                                    border:"1px solid rgba(120,97,255,0.2)" }}>
-                      {e.grade}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Achievements */}
-          <div>
-            <h3 className="font-display mb-6" style={{ fontWeight:700, fontSize:"1rem", textTransform:"uppercase",
-                                                         letterSpacing:"0.1em", color:"var(--muted)" }}>Honors</h3>
-            {DATA.achievements.map((a, i) => (
-              <div key={i} className={`glass card-hover reveal stagger-${i+2} ${inView?"visible":""} mb-4`}
-                   style={{ borderRadius:12, padding:24, display:"flex", gap:16 }}>
-                <div style={{ width:44, height:44, borderRadius:10, background:"rgba(120,97,255,0.08)",
-                              display:"flex", alignItems:"center", justifyContent:"center",
-                              fontSize:"1.3rem", flexShrink:0 }}>
-                  {a.icon}
-                </div>
-                <div>
-                  <div className="font-display" style={{ fontWeight:700, fontSize:"0.95rem", marginBottom:6 }}>{a.title}</div>
-                  <div style={{ fontSize:"0.8rem", color:"var(--muted)", lineHeight:1.7 }}>{a.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── EMAILJS CONFIG — Fill these in after signing up at emailjs.com ── */
-const EMAILJS_SERVICE_ID  = "service_m58nl3f";
-const EMAILJS_TEMPLATE_ID = "template_pxpvro5";
-const EMAILJS_PUBLIC_KEY  = "Fss2ZcZqimqAHGVX6";
-
-/* ─── CONTACT ────────────────────────────────────────────────── */
-function Contact() {
-  const [ref, inView] = useInView();
-  const [form, setForm] = useState({ name:"", email:"", message:"" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
-  const mailtoHref = `mailto:${DATA.email}?subject=${encodeURIComponent(`Portfolio message from ${form.name || "a visitor"}`)}&body=${encodeURIComponent(`From: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
-
-  const handleSubmit = async () => {
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setStatus("error_fields");
+  if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  messageForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!messageForm.reportValidity()) return;
+    const formData = new FormData(messageForm);
+    const name = String(formData.get('from_name') || '').trim();
+    const email = String(formData.get('from_email') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    if (!name || !email || !message) {
+      showMessageStatus('error', 'Please fill in all fields before sending.');
       return;
     }
-    setStatus("sending");
+    messageSubmit.disabled = true;
+    messageSubmit.textContent = 'Sending…';
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name:    form.name,
-          from_email:   form.email,
-          message:      form.message,
-          to_name:      "Diya Bobby",
-          reply_to:     form.email,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
-      setStatus("success");
-      setForm({ name:"", email:"", message:"" });
-      setTimeout(() => setStatus("idle"), 5000);
-    } catch (err) {
-      console.error("EmailJS error:", err);
-      setStatus("error");
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        message,
+        to_name: 'Diya Bobby',
+        reply_to: email
+      });
+      showMessageStatus('success', '✓ Message sent! I’ll get back to you soon.');
+      messageForm.reset();
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      const subject = encodeURIComponent(`Portfolio message from ${name || 'a visitor'}`);
+      const body = encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`);
+      const mailto = `mailto:1999diya@gmail.com?subject=${subject}&body=${body}`;
+      showMessageStatus('error', `The message service is unavailable. Your message is still here. <a href="${mailto}">Open in your email app</a>`);
+    } finally {
+      messageSubmit.disabled = false;
+      messageSubmit.textContent = 'Send Message ↗';
     }
-  };
-
-  return (
-    <section id="contact" className="section" style={{ background:"var(--bg2)" }} ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className={`reveal ${inView?"visible":""}`}>
-          <div className="section-num mb-2">06 / contact</div>
-          <h2 className="font-display" style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:800 }}>
-            Let's <span style={{ color:"var(--accent)" }}>Connect</span>
-          </h2>
-        </div>
-        <div className="glow-line mt-6 mb-12" />
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Left info */}
-          <div className={`reveal-left ${inView?"visible":""}`}>
-            <p style={{ color:"var(--muted)", fontSize:"0.9rem", lineHeight:1.85, marginBottom:32 }}>
-              Open to full-time opportunities, collaborations, and interesting backend challenges.
-              Don't hesitate to reach out — I'd love to hear from you.
-            </p>
-
-            {[
-              { icon: (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                ), label:"Email", value: DATA.email, href:`mailto:${DATA.email}` },
-              { icon: (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.44c.98 0 1.79-.77 1.79-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
-                  </svg>
-                ), label:"LinkedIn", value: "Diya Bobby", href: DATA.linkedin },
-              { icon: (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                ), label:"GitHub", value: DATA.github, href: DATA.github },
-                { icon: (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-                        </svg>
-                    ), label:"Leetcode", value: DATA.leetcode, href: DATA.leetcode }
-            ].map(c => (
-              <a key={c.label} href={c.href} target="_blank" rel="noopener"
-                 className="glass card-hover flex items-center gap-4 mb-4"
-                 style={{ borderRadius:10, padding:"14px 20px", textDecoration:"none",
-                          transition:"border-color 0.2s, transform 0.2s, box-shadow 0.2s" }}>
-                <div style={{ width:36, height:36, borderRadius:8, background:"rgba(120,97,255,0.1)",
-                              display:"flex", alignItems:"center", justifyContent:"center", color:"var(--accent)" }}>
-                  {c.icon}
-                </div>
-                <div>
-                  <div style={{ fontSize:"0.65rem", color:"var(--muted)", letterSpacing:"0.1em", textTransform:"uppercase" }}>{c.label}</div>
-                  <div style={{ fontSize:"0.83rem", color:"var(--text)", marginTop:2 }}>{c.value}</div>
-                </div>
-                <span style={{ marginLeft:"auto", color:"var(--muted)", fontSize:"0.9rem" }}>›</span>
-              </a>
-            ))}
-          </div>
-
-          {/* Right form */}
-          <div className={`reveal-right ${inView?"visible":""}`}>
-            <div className="glass" style={{ borderRadius:12, padding:28 }}>
-              <div className="section-num mb-5">Send a message</div>
-
-              {/* ── Status banners ── */}
-              {status === "success" && (
-                <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(120,97,255,0.1)", border:"1px solid rgba(120,97,255,0.3)", color:"var(--accent)",
-                              display:"flex", alignItems:"center", gap:8 }}>
-                  <span>✓</span> Message sent! I'll get back to you soon.
-                </div>
-              )}
-              {status === "error" && (
-                <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(229,117,131,0.08)", border:"1px solid rgba(229,117,131,0.3)", color:"var(--accent2)" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-                    <span>✕</span> The message service is unavailable. Your message is still here.
-                  </div>
-                  <a href={mailtoHref}
-                     style={{ display:"inline-block", marginTop:10, color:"var(--accent)", textDecoration:"underline", fontWeight:600 }}>
-                    Open in your email app
-                  </a>
-                </div>
-              )}
-              {status === "error_fields" && (
-                <div style={{ padding:"12px 16px", borderRadius:8, marginBottom:16, fontSize:"0.82rem",
-                              background:"rgba(229,117,131,0.08)", border:"1px solid rgba(229,117,131,0.3)", color:"var(--accent2)",
-                              display:"flex", alignItems:"center", gap:8 }}>
-                  <span>⚠</span> Please fill in all fields before sending.
-                </div>
-              )}
-
-              <div className="mb-4">
-                <label style={{ fontSize:"0.7rem", color:"var(--muted)", letterSpacing:"0.1em",
-                                 textTransform:"uppercase", display:"block", marginBottom:8 }}>Name</label>
-                <input className="form-input" placeholder="Your name"
-                       value={form.name} onChange={e => setForm(f=>({...f, name:e.target.value}))}
-                       disabled={status === "sending"} />
-              </div>
-              <div className="mb-4">
-                <label style={{ fontSize:"0.7rem", color:"var(--muted)", letterSpacing:"0.1em",
-                                 textTransform:"uppercase", display:"block", marginBottom:8 }}>Email</label>
-                <input className="form-input" type="email" placeholder="your@email.com"
-                       value={form.email} onChange={e => setForm(f=>({...f, email:e.target.value}))}
-                       disabled={status === "sending"} />
-              </div>
-              <div className="mb-6">
-                <label style={{ fontSize:"0.7rem", color:"var(--muted)", letterSpacing:"0.1em",
-                                 textTransform:"uppercase", display:"block", marginBottom:8 }}>Message</label>
-                <textarea className="form-input" placeholder="Tell me about your project or opportunity..."
-                          value={form.message} onChange={e => setForm(f=>({...f, message:e.target.value}))}
-                          disabled={status === "sending"} />
-              </div>
-              <button className="btn-primary" onClick={handleSubmit}
-                      disabled={status === "sending"}
-                      style={{ width:"100%", justifyContent:"center",
-                               opacity: status === "sending" ? 0.7 : 1,
-                               cursor: status === "sending" ? "not-allowed" : "pointer" }}>
-                {status === "sending" ? (
-                  <>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                         style={{ animation:"spin-slow 1s linear infinite" }}>
-                      <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-                    </svg>
-                    Sending…
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                    </svg>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── FOOTER ─────────────────────────────────────────────────── */
-function Footer() {
-  return (
-    <footer style={{ background:"var(--bg)", borderTop:"1px solid var(--border)", padding:"32px 24px", position:"relative", zIndex:2 }}>
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="font-display" style={{ fontWeight:800, fontSize:"1rem", color:"var(--accent)" }}>
-          DB<span style={{ color:"var(--text)" }}>.</span>
-        </div>
-        <div style={{ fontSize:"0.72rem", color:"var(--muted)", fontFamily:"'DM Mono',monospace", textAlign:"center" }}>
-          Designed & built by <span style={{ color:"var(--accent)" }}>Diya Bobby</span> · {new Date().getFullYear()}
-        </div>
-        <div style={{ fontSize:"0.72rem", color:"var(--muted)", fontFamily:"'DM Mono',monospace" }}>
-          Bengaluru, India 🇮🇳
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-/* ─── CURSOR ─────────────────────────────────────────────────── */
-function CursorGlow() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    const move = (e) => {
-      el.style.left = e.clientX + "px";
-      el.style.top = e.clientY + "px";
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-  return <div className="cursor-glow" ref={ref} />;
-}
-
-/* ─── APP ────────────────────────────────────────────────────── */
-function App() {
-  const [theme, setTheme] = useState("dark");
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  return (
-    <>
-      <Navbar theme={theme} setTheme={setTheme} />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
-    </>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  });
 </script>
+
 </body>
 </html>
